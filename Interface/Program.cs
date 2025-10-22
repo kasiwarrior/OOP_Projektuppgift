@@ -9,6 +9,8 @@ namespace Interface
             Console.WriteLine("Hello, ALLA! Nej" );
             
             Console.WriteLine("HEJ MED DIG");
+
+            Console.WriteLine("New Branch");
             
         }
     }
