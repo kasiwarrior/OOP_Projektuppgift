@@ -8,5 +8,7 @@ namespace BackendLibrary
 {
     internal interface IWorker
     {
+        public int GetId();
+        public string GetName();
     }
 }
