@@ -6,7 +6,7 @@ namespace Interface
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello, Pär!" );
+            Console.WriteLine("Hello, ALLA!" );
             
         }
     }
