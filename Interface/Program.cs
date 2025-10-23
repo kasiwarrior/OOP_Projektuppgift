@@ -6,12 +6,23 @@ namespace Interface
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello, ALLA! Nej" );
-            
-            Console.WriteLine("HEJ MED DIG");
+            WorkerRegistry workerRegistry = new WorkerRegistry();
 
-            Console.WriteLine("New Branch");
-            
+            //Ant temp = new Ant(1, "Isak");
+            //workerRegistry.AddWorker(temp.GetId(), temp);
+            //temp = new Ant(2, "Isak2");
+            //workerRegistry.AddWorker(temp.GetId(), temp);
+            //temp = new Ant(3, "Isak3");
+            //workerRegistry.AddWorker(temp.GetId(), temp);
+            //temp = new Ant(4, "Isak4");
+            //workerRegistry.AddWorker(temp.GetId(), temp);
+
+            //workerRegistry.CreateBackup();
+
+            workerRegistry.LoadBackup();
+            workerRegistry.CreateBackup();
+            workerRegistry.LoadBackup();
+            workerRegistry.TestPrinter();
         }
     }
 }
