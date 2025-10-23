@@ -41,7 +41,7 @@ namespace BackendLibrary
         }
         public bool UpdateWorker(int id)
         {
-            SerchWorker(id);
+            SearchWorker(id);
             return true;
         }
         public void CreateBackup()
