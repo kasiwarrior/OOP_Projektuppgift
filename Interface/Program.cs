@@ -20,9 +20,10 @@ namespace Interface
             //workerRegistry.CreateBackup();
 
             workerRegistry.LoadBackup();
-            workerRegistry.CreateBackup();
-            workerRegistry.LoadBackup();
-            workerRegistry.TestPrinter();
+            Console.WriteLine("Done");
+            //workerRegistry.CreateBackup();
+            //workerRegistry.LoadBackup();
+            //workerRegistry.TestPrinter();
         }
     }
 }
