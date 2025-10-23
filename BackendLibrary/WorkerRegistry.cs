@@ -20,10 +20,13 @@ namespace BackendLibrary
             registry.Add(id, worker);
             return true; // Add error detection
         }
-        public bool RemoveWorker()
-        {
 
-            return true;
+        public bool RemoveWorker(int id)
+        {
+            if (registry == null)
+                return false;
+            
+            return registry.Remove(id);
         }
         public List<IWorker> SearchWorker(string name)//fler sökfunktionen
         {
@@ -55,7 +58,7 @@ namespace BackendLibrary
             }
             File.WriteAllLines("Backup.csv", lines);
         }
-        public void LoadBackup()
+        /*public void LoadBackup()
         {
             //kanske nått medelande om lyckas eller misslyckas :/
             //lägg till klockslags grejen :) 
@@ -70,7 +73,7 @@ namespace BackendLibrary
                     AddWorker(int.Parse(parts[0]), new Ant(int.Parse(parts[0]), parts[1])); //Fixa så att det inte bara är myror som läggs till
                 }
             }
-        }
+        }*/
         public void TestPrinter()
         {
             foreach (var item in registry)
