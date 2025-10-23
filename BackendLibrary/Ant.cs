@@ -21,7 +21,7 @@ namespace BackendLibrary
         }
         public override string ToString()
         {
-            return $"id: {id} name: {name}";
+            return $"Id:{id}, Name:{name}";
         }
         public Ant(int id, string name)
         {
