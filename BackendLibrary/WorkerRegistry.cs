@@ -15,10 +15,34 @@ namespace BackendLibrary
 
 
 
-        public string AddWorker(int id, IWorker worker)
+        public bool AddWorker(int id, IWorker worker)
         {
             registry.Add(id, worker);
-            return "Succses"; // Add error detection
+            return true; // Add error detection
+        }
+        public bool RemoveWorker()
+        {
+
+            return true;
+        }
+        public List<IWorker> SearchWorker(string name)//fler sökfunktionen
+        {
+            List<IWorker> workers = new List<IWorker>();
+            //implementera serch
+
+            return workers;
+        }
+        public IWorker SearchWorker(int id)
+        {
+
+            //implementera serch
+
+            return null;
+        }
+        public bool UpdateWorker(int id)
+        {
+            SerchWorker(id);
+            return true;
         }
         public void CreateBackup()
         { 
@@ -43,7 +67,7 @@ namespace BackendLibrary
                 foreach (string line in lines)
                 {
                     string[] parts = line.Split(';');
-                    AddWorker(int.Parse(parts[0]), new Ant(int.Parse(parts[0]), parts[1])); //Fixsa så att det inte bara är myror som läggs till
+                    AddWorker(int.Parse(parts[0]), new Ant(int.Parse(parts[0]), parts[1])); //Fixa så att det inte bara är myror som läggs till
                 }
             }
         }
