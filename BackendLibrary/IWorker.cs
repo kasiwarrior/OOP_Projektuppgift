@@ -8,10 +8,11 @@ namespace BackendLibrary
 {
     public interface IWorker
     {
+        public DateTime GetStartDate();
         public int GetId();
         public string GetName();        
-        public string GetWorkType();
-        public string GetShiftType();  
-        // Anställningsdatum
+        public WorkType GetWorkType();
+        public ShiftType GetShiftType();
+        
     }
 }

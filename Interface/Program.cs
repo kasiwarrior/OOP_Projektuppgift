@@ -8,7 +8,7 @@ namespace Interface
         {
             WorkerRegistry workerRegistry = new WorkerRegistry();
 
-            Ant temp = new Ant(1, "Isak1", WorkType.Ant, ShiftType.Night);
+            Ant temp = new Ant(2, "Fredde Freddeluring", WorkType.Bee, ShiftType.Day);
             //workerRegistry.AddWorker(temp.GetId(), temp);
             //temp = new Ant(2, "Isak2");
             //workerRegistry.AddWorker(temp.GetId(), temp);

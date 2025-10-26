@@ -13,13 +13,16 @@ namespace BackendLibrary
         private string name;
         private WorkType workType;
         private ShiftType shiftType;
+        private DateTime startDate;
         
         public Ant(int id, string name, WorkType workType, ShiftType shiftType)
         {
             this.id = id;
             this.name = name;
             this.workType = workType;
-            this.shiftType = shiftType;  
+            this.shiftType = shiftType;
+            startDate = DateTime.Now;
+            
         }
 
         public int GetId()
@@ -30,21 +33,22 @@ namespace BackendLibrary
         {
             return name;
         }
-        public string GetWorkType() 
+        public WorkType GetWorkType() 
         {
-            return workType.ToString();
+            return workType;
         }
-        public string GetShiftType() 
+        public ShiftType GetShiftType() 
         {
-            return shiftType.ToString();    
+            return shiftType;    
         }
-       
+        public DateTime GetStartDate()
+        {
+            return startDate;
+        }
+
         public override string ToString()
         {
-            return $"Id:{id}, Name:{name}, Worktype: {workType}, Shift: {shiftType}";
+            return $"Id: {id}, Name: {name}, Worktype: {workType}, Shift: {shiftType}, StartDate: {startDate}";
         }
-       
-        
-
     }
 }
