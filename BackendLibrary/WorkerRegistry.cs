@@ -9,7 +9,7 @@ using System.Diagnostics;
 
 namespace BackendLibrary
 {
-    public class WorkerRegistry
+    public class WorkerRegistry : TimeManagement
     {
         Dictionary<int, IWorker> registry;
 
@@ -39,11 +39,11 @@ namespace BackendLibrary
 
             return null;
         }
-        public bool UpdateWorker(int id)
-        {
-            SerchWorker(id);
-            return true;
-        }
+        //public bool UpdateWorker(int id)
+        //{
+        //    SerchWorker(id);
+        //    return true;
+        //}
         public void CreateBackup()
         { 
             //kanske nått medelande om lyckas eller misslyckas :/
