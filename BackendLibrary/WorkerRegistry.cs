@@ -9,7 +9,7 @@ using System.Diagnostics;
 
 namespace BackendLibrary
 {
-    public class WorkerRegistry
+    public class WorkerRegistry : TimeManagement
     {
         Dictionary<int, IWorker> registry;
 

@@ -15,14 +15,14 @@ namespace BackendLibrary
         private ShiftType shiftType;
         private DateTime startDate;
         
-        public Ant(int id, string name, WorkType workType, ShiftType shiftType)
+        public Ant(int id, string name, WorkType workType, ShiftType shiftType, bool workShoes = true)
         {
             this.id = id;
             this.name = name;
             this.workType = workType;
             this.shiftType = shiftType;
             startDate = DateTime.Now;
-            
+            this.workShoes = workShoes;
         }
 
         public int GetId()
@@ -34,9 +34,11 @@ namespace BackendLibrary
             return name;
         }
         public WorkType GetWorkType() 
-        {
-            return workType;
-        }
+        private bool workShoes;
+        public int GetId() => id;   
+        public string GetName() => name;
+        public bool GetWorkShoes() => workShoes;
+        public bool SetWorkShoes(bool hasShoes) => workShoes = hasShoes;
         public ShiftType GetShiftType() 
         {
             return shiftType;    

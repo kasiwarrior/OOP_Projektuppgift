@@ -13,6 +13,6 @@ namespace BackendLibrary
         public string GetName();        
         public WorkType GetWorkType();
         public ShiftType GetShiftType();
-        
+        public bool GetWorkShoes();
     }
 }
