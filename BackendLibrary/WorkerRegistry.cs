@@ -20,8 +20,10 @@ namespace BackendLibrary
             registry.Add(id, worker);
             return true; // Add error detection
         }
-        public bool RemoveWorker()
+        public bool RemoveWorker(int id)
         {
+
+            registry.Remove(id);
 
             return true;
         }

@@ -17,6 +17,7 @@ namespace Interface
             temp = new Ant(4, "Isak4");
             workerRegistry.AddWorker(temp.GetId(), temp);
 
+
             workerRegistry.CreateBackup();
 
             workerRegistry.LoadBackup();
