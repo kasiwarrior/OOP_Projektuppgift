@@ -55,22 +55,22 @@ namespace BackendLibrary
             }
             File.WriteAllLines("Backup.csv", lines);
         }
-        public void LoadBackup()
-        {
-            //kanske nått medelande om lyckas eller misslyckas :/
-            //lägg till klockslags grejen :) 
-            if (File.Exists("Backup.csv"))
-            {
-                registry = new Dictionary<int, IWorker>();
-                string[] lines = File.ReadAllLines("Backup.csv");
+        //public void loadbackup()
+        //{
+        //    //kanske nått medelande om lyckas eller misslyckas :/
+        //    //lägg till klockslags grejen :) 
+        //    if (file.exists("backup.csv"))
+        //    {
+        //        registry = new dictionary<int, iworker>();
+        //        string[] lines = file.readalllines("backup.csv");
 
-                foreach (string line in lines)
-                {
-                    string[] parts = line.Split(';');
-                    AddWorker(int.Parse(parts[0]), new Ant(int.Parse(parts[0]), parts[1])); //Fixa så att det inte bara är myror som läggs till
-                }
-            }
-        }
+        //        foreach (string line in lines)
+        //        {
+        //            string[] parts = line.split(';');
+        //            addworker(int.parse(parts[0]), new ant(int.parse(parts[0]), parts[1])); //fixa så att det inte bara är myror som läggs till
+        //        }
+        //    }
+        //}
         public void TestPrinter()
         {
             foreach (var item in registry)
