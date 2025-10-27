@@ -6,9 +6,10 @@ using System.Threading.Tasks;
 
 namespace BackendLibrary
 {
-    internal interface IWorker
+    public interface IWorker
     {
         public int GetId();
         public string GetName();
+        bool GetWorkShoes();
     }
 }

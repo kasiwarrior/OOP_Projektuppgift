@@ -7,15 +7,24 @@ using System.Threading.Tasks;
 
 namespace BackendLibrary
 {
-    internal class Ant : IWorker
+    public class Ant : IWorker
     {
-        public int GetId()
+        private int id;
+        private string name;
+        private bool workShoes;
+        public int GetId() => id;   
+        public string GetName() => name;
+        public bool GetWorkShoes() => workShoes;
+        public bool SetWorkShoes(bool hasShoes) => workShoes = hasShoes;
+        public override string ToString()
         {
-            return 1;
+            return $"Id:{id}, Name:{name}";
         }
-        public string GetName()
+        public Ant(int id, string name, bool workShoes = true)
         {
-            return "name";
+            this.id = id;
+            this.name = name;
+            this.workShoes = workShoes;
         }
     }
 }
