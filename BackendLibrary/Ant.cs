@@ -33,10 +33,7 @@ namespace BackendLibrary
         {
             return name;
         }
-        public WorkType GetWorkType() 
         private bool workShoes;
-        public int GetId() => id;   
-        public string GetName() => name;
         public bool GetWorkShoes() => workShoes;
         public bool SetWorkShoes(bool hasShoes) => workShoes = hasShoes;
         public ShiftType GetShiftType() 
@@ -51,6 +48,11 @@ namespace BackendLibrary
         public override string ToString()
         {
             return $"Id: {id}, Name: {name}, Worktype: {workType}, Shift: {shiftType}, StartDate: {startDate}";
+        }
+
+        public WorkType GetWorkType()
+        {
+            throw new NotImplementedException();
         }
     }
 }
