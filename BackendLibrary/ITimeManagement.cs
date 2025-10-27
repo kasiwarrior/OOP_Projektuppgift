@@ -6,10 +6,9 @@ using System.Threading.Tasks;
 
 namespace BackendLibrary
 {
-    public interface IWorker
+    public interface ITimeManagement
     {
-        public int GetId();
-        public string GetName();
-        bool GetWorkShoes();
+        DateTime LastUpdated { get; }
+        void UpdateTime();
     }
 }
