@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-namespace ClassLibraryTest
-{
-    public class Class1
-    {
 
+namespace BackendLibrary
+{
+    public enum ShiftType
+    {
+        Day,
+        Night
     }
 }

@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace BackendLibrary
 {
-    public class Test
+    public interface ITimeManagement
     {
-        Dictionary<int, IWorker> WorkerRegestry;
+        DateTime LastUpdated { get; }
+        void UpdateTime();
     }
 }
