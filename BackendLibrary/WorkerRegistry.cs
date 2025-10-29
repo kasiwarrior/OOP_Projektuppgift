@@ -20,7 +20,7 @@ namespace BackendLibrary
             registry.Add(id, worker);
             return true; // Add error detection
         }
-        public bool RemoveWorker(int id)
+        public bool RemoveWorker(int id) 
         {
 
             registry.Remove(id);
@@ -34,12 +34,22 @@ namespace BackendLibrary
 
             return workers;
         }
+
+
+        // search by id
         public IWorker SearchWorker(int id)
         {
+            // implementera serch 
+            // try get value gör att det blir lite smidigare att kolla om det finns nått med det id:t
+            if (registry.TryGetValue(id, out IWorker worker))
+            {
+                return worker;
 
-            //implementera serch
-
+            }
+            // 
+            Console.WriteLine("Ingen myra hittades med det ID:T");
             return null;
+            
         }
         //public bool UpdateWorker(int id)
         //{
