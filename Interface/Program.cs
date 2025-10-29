@@ -19,13 +19,13 @@ namespace Interface
 
             //workerRegistry.CreateBackup();
 
-            Console.WriteLine(temp);
+            //Console.WriteLine(temp);
             workerRegistry.LoadBackup();
             //Console.WriteLine("Done");
             //workerRegistry.CreateBackup();
             //workerRegistry.LoadBackup();
             workerRegistry.TestPrinter();
-            workerRegistry.PrintLastUpdated();
+            //workerRegistry.PrintLastUpdated();
 
             Console.WriteLine("Test klart!");
             Console.ReadKey();
