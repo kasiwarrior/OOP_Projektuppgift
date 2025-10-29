@@ -8,7 +8,7 @@ namespace Interface
         {
             WorkerRegistry workerRegistry = new WorkerRegistry();
 
-            //Ant temp = new Ant(1, "Isak");
+            Ant temp = new Ant(10238, "Ann-Sophie Gunnarson", WorkType.Ant, ShiftType.Night);
             //workerRegistry.AddWorker(temp.GetId(), temp);
             //temp = new Ant(2, "Isak2");
             //workerRegistry.AddWorker(temp.GetId(), temp);
@@ -17,13 +17,14 @@ namespace Interface
             //temp = new Ant(4, "Isak4");
             //workerRegistry.AddWorker(temp.GetId(), temp);
 
-            //workerRegistry.CreateBackup();
+            workerRegistry.CreateBackup();
 
-            workerRegistry.LoadBackup();
-            Console.WriteLine("Done");
+            Console.WriteLine(temp);
+            //workerRegistry.LoadBackup();
+            //Console.WriteLine("Done");
             //workerRegistry.CreateBackup();
             //workerRegistry.LoadBackup();
-            //workerRegistry.TestPrinter();
+            workerRegistry.TestPrinter();
         }
     }
 }
