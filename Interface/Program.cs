@@ -19,7 +19,7 @@ namespace Interface
 
             workerRegistry.CreateBackup();
 
-            Console.WriteLine(temp);
+            //Console.WriteLine(temp);
             //workerRegistry.LoadBackup();
             //Console.WriteLine("Done");
             //workerRegistry.CreateBackup();

@@ -91,12 +91,12 @@ namespace BackendLibrary
         //}
 
         //Skriver ut senaste Backup
-        public void PrintLastUpdated()
+        public string PrintLastUpdated()
         {
             if (lastBackupTime.HasValue)
-                Console.WriteLine($"Senaste backup skapades: {lastBackupTime}");
+               return ($"Senaste backup skapades: {lastBackupTime}");
             else
-                Console.WriteLine("Ingen backup har skapats än.");
+                return ("Ingen backup har skapats än.");
         }
         public void TestPrinter()
         {
