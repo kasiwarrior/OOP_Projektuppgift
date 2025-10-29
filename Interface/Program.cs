@@ -25,6 +25,10 @@ namespace Interface
             //workerRegistry.CreateBackup();
             //workerRegistry.LoadBackup();
             workerRegistry.TestPrinter();
+            workerRegistry.PrintLastUpdated();
+
+            Console.WriteLine("Test klart!");
+            Console.ReadKey();
         }
     }
 }
