@@ -10,7 +10,7 @@ namespace Interface
 
             
 
-            Ant temp = new Ant(id: 1, "Myra1", workType: WorkType.Ant, ShiftType.Day, workShoes: true);
+            Ant temp = new Ant(id: 2000, "Myra1", workType: WorkType.Ant, ShiftType.Day, workShoes: true);
             workerRegistry.AddWorker(temp.GetId(), temp);
             temp = new Ant(id: 2, "Myra2", workType: WorkType.Ant, ShiftType.Day, workShoes: true);
             workerRegistry.AddWorker(temp.GetId(), temp);
@@ -21,15 +21,15 @@ namespace Interface
             workerRegistry.TestPrinter();
             Console.WriteLine("Tryck för att skriva ut listan igen....");
             Console.ReadKey();
-            workerRegistry.UpdateWorkerShift(1,ShiftType.Night);
+            workerRegistry.UpdateWorkerShift(2000,ShiftType.Night);
             workerRegistry.UpdateWorkerShift(2,ShiftType.Night);
             workerRegistry.UpdateWorkerShift(3,ShiftType.Night);
             
-            workerRegistry.UpdateWorkerName(1, "Fredrik Domert");
+            workerRegistry.UpdateWorkerName(2000, "Fredrik Domert");
             workerRegistry.UpdateWorkerName(2, "Pär Hedström");
             workerRegistry.UpdateWorkerName(3, "Isak Wallin Färje");
             
-            workerRegistry.UpdateWorkerShoes(1, false);
+            workerRegistry.UpdateWorkerShoes(2000, false);
             workerRegistry.UpdateWorkerShoes(2, false);
             workerRegistry.UpdateWorkerShoes(3, false);
             

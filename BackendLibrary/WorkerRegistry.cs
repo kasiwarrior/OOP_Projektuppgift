@@ -119,7 +119,7 @@ namespace BackendLibrary
         {
             foreach (var item in registry)
             {
-                Console.WriteLine(item.ToString());
+                Console.WriteLine(item.Value.ToString());
             }
         }
         public WorkerRegistry()
