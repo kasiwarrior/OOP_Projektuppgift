@@ -35,7 +35,8 @@ namespace BackendLibrary
                 name: newName,
                 workType: old.GetWorkType(),
                 shiftType: old.GetShiftType(),
-                workShoes: old.GetWorkShoes()
+                workShoes: old.GetWorkShoes(),
+                startDate: old.GetStartDate()
             );
             registry[id] = updated;
         }
@@ -48,7 +49,8 @@ namespace BackendLibrary
                 name: old.GetName(),
                 workType: old.GetWorkType(),
                 shiftType: shift,
-                workShoes: old.GetWorkShoes()
+                workShoes: old.GetWorkShoes(),
+                startDate: old.GetStartDate()
             );
             registry[id] = updated;
         }
@@ -61,7 +63,8 @@ namespace BackendLibrary
                 name: old.GetName(),
                 workType: old.GetWorkType(),
                 shiftType: old.GetShiftType(),
-                workShoes: hasShoes
+                workShoes: hasShoes,
+                startDate: old.GetStartDate()
             );
             registry[id] = updated;
         }
@@ -74,7 +77,8 @@ namespace BackendLibrary
                 name: old.GetName(),
                 workType: work,
                 shiftType: old.GetShiftType(),
-                workShoes: old.GetWorkShoes()
+                workShoes: old.GetWorkShoes(),
+                startDate: old.GetStartDate()
             );
             registry[id] = updated;
         }
