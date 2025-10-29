@@ -14,14 +14,15 @@ namespace BackendLibrary
         private WorkType workType;
         private ShiftType shiftType;
         private DateTime startDate;
-        
-        public Ant(int id, string name, WorkType workType, ShiftType shiftType, bool workShoes = true)
+        private bool workShoes;
+
+        public Ant(int id, string name, WorkType workType, ShiftType shiftType, bool workShoes, DateTime startDate)
         {
             this.id = id;
             this.name = name;
             this.workType = workType;
             this.shiftType = shiftType;
-            startDate = DateTime.Now;
+            this.startDate = startDate;
             this.workShoes = workShoes;
         }
 
@@ -29,30 +30,44 @@ namespace BackendLibrary
         {
             return id;
         }
+
         public string GetName()
         {
             return name;
         }
-        private bool workShoes;
-        public bool GetWorkShoes() => workShoes;
-        public bool SetWorkShoes(bool hasShoes) => workShoes = hasShoes;
+
+        public bool GetWorkShoes()
+        {
+            return workShoes;
+        }
+
+        public bool SetWorkShoes(bool hasShoes)
+        {
+            workShoes = hasShoes;
+            return hasShoes;
+        }
+
+        public WorkType GetWorkType()
+        {
+            return workType;
+        }
+        
         public ShiftType GetShiftType() 
         {
             return shiftType;    
         }
+
         public DateTime GetStartDate()
         {
             return startDate;
         }
 
+
         public override string ToString()
         {
-            return $"Id: {id}, Name: {name}, Worktype: {workType}, Shift: {shiftType}, StartDate: {startDate}";
+            return $"Id: {id}, Name: {name}, Worktype: {workType}, WorkShoes {workShoes}, Shift: {shiftType}, StartDate: {startDate}";
         }
 
-        public WorkType GetWorkType()
-        {
-            throw new NotImplementedException();
-        }
+        
     }
 }
