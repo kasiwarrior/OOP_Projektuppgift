@@ -113,7 +113,7 @@ namespace Interface
                     Console.Write("Nytt namn: ");
                     string newName = Console.ReadLine();
                     registry.UpdateWorkerName(id, newName);
-                    Console.WriteLine("✅ Namn uppdaterat!");
+                    Console.WriteLine("Namn uppdaterat!");
                     break;
 
                 case "2":
@@ -121,7 +121,7 @@ namespace Interface
                     if (Enum.TryParse(Console.ReadLine(), true, out ShiftType shift))
                     {
                         registry.UpdateWorkerShift(id, shift);
-                        Console.WriteLine("✅ Skift uppdaterat!");
+                        Console.WriteLine("Skift uppdaterat!");
                     }
                     else Console.WriteLine("Felaktigt skift.");
                     break;
@@ -131,7 +131,7 @@ namespace Interface
                     string shoeInput = Console.ReadLine().Trim().ToLower();
                     bool hasShoes = (shoeInput == "ja" || shoeInput == "yes");
                     registry.UpdateWorkerShoes(id, hasShoes);
-                    Console.WriteLine("✅ Skyddsskor uppdaterade!");
+                    Console.WriteLine("Skyddsskor uppdaterade!");
                     break;
 
                 case "4":
@@ -139,7 +139,7 @@ namespace Interface
                     if (Enum.TryParse(Console.ReadLine(), true, out WorkType work))
                     {
                         registry.UpdateWorkerType(id, work);
-                        Console.WriteLine("✅ Jobbtyp uppdaterad!");
+                        Console.WriteLine("Jobbtyp uppdaterad!");
                     }
                     else Console.WriteLine("Felaktig typ.");
                     break;
