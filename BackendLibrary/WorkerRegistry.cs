@@ -9,11 +9,23 @@ using System.Diagnostics;
 
 namespace BackendLibrary
 {
-    public class WorkerRegistry : TimeManagement
+    public class WorkerRegistry 
     {
         Dictionary<int, IWorker> registry;
+        private DateTime? lastBackupTime;
 
+        public WorkerRegistry()
+        {
+            registry = new Dictionary<int, IWorker>();
 
+            //Läser in senaste backup-tid från fil
+            if (File.Exists("BackupTime.txt"))
+            {
+                string savedTime = File.ReadAllText("BackupTime.txt");
+                if (DateTime.TryParse(savedTime, out DateTime parsed))
+                    lastBackupTime = parsed;
+            }
+        }
 
         public bool AddWorker(int id, IWorker worker)
         {
@@ -113,6 +125,12 @@ namespace BackendLibrary
                 lines.Add($"{item.Value.GetId()};{item.Value.GetName()};{item.Value.GetWorkType()};{item.Value.GetShiftType()};{item.Value.GetWorkShoes()};{item.Value.GetStartDate()}");
             }
             File.WriteAllLines("Backup.csv", lines);
+
+            //Uppdatera tid
+            lastBackupTime = DateTime.Now;
+            File.WriteAllText("BackupTime.txt", lastBackupTime.ToString());
+
+            Console.WriteLine($"Backup skapad {lastBackupTime}");
         }
         public void LoadBackup()
         {
@@ -134,10 +152,6 @@ namespace BackendLibrary
             {
                 Console.WriteLine(item.Value.ToString());
             }
-        }
-        public WorkerRegistry()
-        {
-            registry = new Dictionary<int, IWorker>();
         }
     }
 }
