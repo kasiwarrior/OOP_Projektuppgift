@@ -8,34 +8,20 @@ namespace Interface
         {
             WorkerRegistry workerRegistry = new WorkerRegistry();
 
-            Ant temp = new Ant(1, "Isak");
+            Ant temp = new Ant(10238, "Ann-Sophie Gunnarson", WorkType.Ant, ShiftType.Night, true, DateTime.Now);
             workerRegistry.AddWorker(temp.GetId(), temp);
-            temp = new Ant(2, "Isak2");
-            workerRegistry.AddWorker(temp.GetId(), temp);
-            temp = new Ant(3, "Isak3");
-            workerRegistry.AddWorker(temp.GetId(), temp);
-            temp = new Ant(4, "Isak4");
-            workerRegistry.AddWorker(temp.GetId(), temp);
+            //temp = new Ant(2, "Isak2");
+            //workerRegistry.AddWorker(temp.GetId(), temp);
+            //temp = new Ant(3, "Isak3");
+            //workerRegistry.AddWorker(temp.GetId(), temp);
+            //temp = new Ant(4, "Isak4");
+            //workerRegistry.AddWorker(temp.GetId(), temp);
 
+            //workerRegistry.CreateBackup();
 
-            // sökningen funkar
-            if (workerRegistry.SearchWorker(2) is IWorker foundWorker)
-            {
-                Console.WriteLine($"Hittade myran: {foundWorker}");
-            }
-
-            
-              
-
-
-
-
-
-
-            workerRegistry.CreateBackup();
-
+            Console.WriteLine(temp);
             workerRegistry.LoadBackup();
-            Console.WriteLine("Done");
+            //Console.WriteLine("Done");
             //workerRegistry.CreateBackup();
             //workerRegistry.LoadBackup();
             workerRegistry.TestPrinter();

@@ -20,13 +20,71 @@ namespace BackendLibrary
             registry.Add(id, worker);
             return true; // Add error detection
         }
-        public bool RemoveWorker(int id) 
+
+        public bool RemoveWorker(int id)
         {
-
-            registry.Remove(id);
-
-            return true;
+            return registry.Remove(id);
         }
+        
+       
+        public void UpdateWorkerName(int id, string newName)
+        {
+            var old = (Ant)registry[id];
+            var updated = new Ant(
+                id: old.GetId(),
+                name: newName,
+                workType: old.GetWorkType(),
+                shiftType: old.GetShiftType(),
+                workShoes: old.GetWorkShoes(),
+                startDate: old.GetStartDate()
+            );
+            registry[id] = updated;
+        }
+
+        public void UpdateWorkerShift(int id, ShiftType shift)
+        {
+            var old = (Ant)registry[id];
+            var updated = new Ant(
+                id: old.GetId(),
+                name: old.GetName(),
+                workType: old.GetWorkType(),
+                shiftType: shift,
+                workShoes: old.GetWorkShoes(),
+                startDate: old.GetStartDate()
+            );
+            registry[id] = updated;
+        }
+
+        public void UpdateWorkerShoes(int id, bool hasShoes)
+        {
+            var old = (Ant)registry[id];
+            var updated = new Ant(
+                id: old.GetId(),
+                name: old.GetName(),
+                workType: old.GetWorkType(),
+                shiftType: old.GetShiftType(),
+                workShoes: hasShoes,
+                startDate: old.GetStartDate()
+            );
+            registry[id] = updated;
+        }
+        
+        public void UpdateWorkerType(int id, WorkType work)
+        {
+            var old = (Ant)registry[id];
+            var updated = new Ant(
+                id: old.GetId(),
+                name: old.GetName(),
+                workType: work,
+                shiftType: old.GetShiftType(),
+                workShoes: old.GetWorkShoes(),
+                startDate: old.GetStartDate()
+            );
+            registry[id] = updated;
+        }
+
+
+
         public List<IWorker> SearchWorker(string name)//fler sökfunktionen
         {
             List<IWorker> workers = new List<IWorker>();
@@ -44,33 +102,20 @@ namespace BackendLibrary
             if (registry.TryGetValue(id, out IWorker worker))
             {
                 return worker;
-
             }
-            
-            Console.WriteLine("Ingen myra hittades med det ID:T");
             return null;
-            
         }
-        //public bool UpdateWorker(int id)
-        //{
-        //    SerchWorker(id);
-        //    return true;
-        //}
         public void CreateBackup()
         { 
-            //kanske nått medelande om lyckas eller misslyckas :/
-            //lägg till klockslags grejen :) 
             var lines = new List<string>();
             foreach (var item in registry)
             {
-                lines.Add($"{item.Value.GetId()};{item.Value.GetName()}");
+                lines.Add($"{item.Value.GetId()};{item.Value.GetName()};{item.Value.GetWorkType()};{item.Value.GetShiftType()};{item.Value.GetWorkShoes()};{item.Value.GetStartDate()}");
             }
             File.WriteAllLines("Backup.csv", lines);
         }
         public void LoadBackup()
         {
-            //kanske nått medelande om lyckas eller misslyckas :/
-            //lägg till klockslags grejen :) 
             if (File.Exists("Backup.csv"))
             {
                 registry = new Dictionary<int, IWorker>();
@@ -79,7 +124,7 @@ namespace BackendLibrary
                 foreach (string line in lines)
                 {
                     string[] parts = line.Split(';');
-                    AddWorker(int.Parse(parts[0]), new Ant(int.Parse(parts[0]), parts[1])); //Fixa så att det inte bara är myror som läggs till
+                    AddWorker(int.Parse(parts[0]), new Ant(int.Parse(parts[0]), parts[1], (WorkType)Enum.Parse(typeof(WorkType), parts[2]), (ShiftType)Enum.Parse(typeof(ShiftType), parts[3]), bool.Parse(parts[4]), DateTime.Parse(parts[5]))); //fixa så att det inte bara är myror som läggs till
                 }
             }
         }
@@ -87,7 +132,7 @@ namespace BackendLibrary
         {
             foreach (var item in registry)
             {
-                Console.WriteLine(item.ToString());
+                Console.WriteLine(item.Value.ToString());
             }
         }
         public WorkerRegistry()
