@@ -9,11 +9,23 @@ using System.Diagnostics;
 
 namespace BackendLibrary
 {
-    public class WorkerRegistry : TimeManagement
+    public class WorkerRegistry 
     {
         Dictionary<int, IWorker> registry;
+        private DateTime? lastBackupTime;
 
+        public WorkerRegistry()
+        {
+            registry = new Dictionary<int, IWorker>();
 
+            //Läser in senaste backup-tid från fil
+            if (File.Exists("BackupTime.txt"))
+            {
+                string savedTime = File.ReadAllText("BackupTime.txt");
+                if (DateTime.TryParse(savedTime, out DateTime parsed))
+                    lastBackupTime = parsed;
+            }
+        }
 
         public bool AddWorker(int id, IWorker worker)
         {
@@ -54,6 +66,12 @@ namespace BackendLibrary
                 lines.Add($"{item.Value.GetId()};{item.Value.GetName()}");
             }
             File.WriteAllLines("Backup.csv", lines);
+
+            //Uppdatera tid
+            lastBackupTime = DateTime.Now;
+            File.WriteAllText("BackupTime.txt", lastBackupTime.ToString());
+
+            Console.WriteLine($"Backup skapad {lastBackupTime}");
         }
         //public void loadbackup()
         //{
@@ -71,16 +89,21 @@ namespace BackendLibrary
         //        }
         //    }
         //}
+
+        //Skriver ut senaste Backup
+        public void PrintLastUpdated()
+        {
+            if (lastBackupTime.HasValue)
+                Console.WriteLine($"Senaste backup skapades: {lastBackupTime}");
+            else
+                Console.WriteLine("Ingen backup har skapats än.");
+        }
         public void TestPrinter()
         {
             foreach (var item in registry)
             {
                 Console.WriteLine(item.ToString());
             }
-        }
-        public WorkerRegistry()
-        {
-            registry = new Dictionary<int, IWorker>();
         }
     }
 }

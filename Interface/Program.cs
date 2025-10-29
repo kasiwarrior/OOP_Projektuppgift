@@ -8,14 +8,14 @@ namespace Interface
         {
             WorkerRegistry workerRegistry = new WorkerRegistry();
 
-            Ant temp = new Ant(2, "Fredde Freddeluring", WorkType.Bee, ShiftType.Day);
-            //workerRegistry.AddWorker(temp.GetId(), temp);
-            //temp = new Ant(2, "Isak2");
-            //workerRegistry.AddWorker(temp.GetId(), temp);
-            //temp = new Ant(3, "Isak3");
-            //workerRegistry.AddWorker(temp.GetId(), temp);
-            //temp = new Ant(4, "Isak4");
-            //workerRegistry.AddWorker(temp.GetId(), temp);
+            Ant temp = new Ant(1, "Fredde Freddeluring", WorkType.Bee, ShiftType.Day);
+            workerRegistry.AddWorker(temp.GetId(), temp);
+            temp = new Ant(2, "Isak2", WorkType.Ant, ShiftType.Day);
+            workerRegistry.AddWorker(temp.GetId(), temp);
+            temp = new Ant(3, "Isak3", WorkType.Ant, ShiftType.Day);
+            workerRegistry.AddWorker(temp.GetId(), temp);
+            temp = new Ant(4, "Isak4", WorkType.Ant, ShiftType.Day);
+            workerRegistry.AddWorker(temp.GetId(), temp);
 
             workerRegistry.CreateBackup();
 
@@ -25,6 +25,10 @@ namespace Interface
             //workerRegistry.CreateBackup();
             //workerRegistry.LoadBackup();
             workerRegistry.TestPrinter();
+            workerRegistry.PrintLastUpdated();
+
+            Console.WriteLine("Test klart!");
+            Console.ReadKey();
         }
     }
 }

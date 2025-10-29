@@ -47,7 +47,7 @@ namespace BackendLibrary
 
         public override string ToString()
         {
-            return $"Id: {id}, Name: {name}, Worktype: {workType}, Shift: {shiftType}, StartDate: {startDate}";
+            return $"Id: {id}, Name: {name}, Worktype: {workType}, Shift: {shiftType}, StartDate: {startDate} WorkShoes: {workShoes}";
         }
 
         public WorkType GetWorkType()
