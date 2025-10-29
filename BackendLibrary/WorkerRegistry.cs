@@ -91,13 +91,7 @@ namespace BackendLibrary
         //}
 
         //Skriver ut senaste Backup
-        public string PrintLastUpdated()
-        {
-            if (lastBackupTime.HasValue)
-               return ($"Senaste backup skapades: {lastBackupTime}");
-            else
-                return ("Ingen backup har skapats än.");
-        }
+
         public void TestPrinter()
         {
             foreach (var item in registry)
