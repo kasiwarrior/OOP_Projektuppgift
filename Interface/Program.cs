@@ -47,7 +47,7 @@ namespace Interface
 
                     case "5":
                         workerRegistry.CreateBackup();
-                        Console.WriteLine("✅ Backup skapad!");
+                        Console.WriteLine("Backup skapad!");
                         Pause();
                         break;
 
