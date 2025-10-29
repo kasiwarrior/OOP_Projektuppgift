@@ -92,19 +92,19 @@ namespace BackendLibrary
 
             return workers;
         }
+
+
+        // search by id
         public IWorker SearchWorker(int id)
         {
-
-            //implementera serch
-           
-
+            // implementera serch 
+            // try get value gör att det blir lite smidigare att kolla om det finns nått med det id:t
+            if (registry.TryGetValue(id, out IWorker worker))
+            {
+                return worker;
+            }
             return null;
         }
-        //public bool UpdateWorker(int id)
-        //{
-        //    SerchWorker(id);
-        //    return true;
-        //}
         public void CreateBackup()
         { 
             var lines = new List<string>();
