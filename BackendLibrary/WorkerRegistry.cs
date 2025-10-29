@@ -20,11 +20,54 @@ namespace BackendLibrary
             registry.Add(id, worker);
             return true; // Add error detection
         }
-        public bool RemoveWorker()
-        {
 
-            return true;
+        public bool RemoveWorker(int id)
+        {
+            return registry.Remove(id);
         }
+        
+       
+        public void UpdateWorkerName(int id, string newName)
+        {
+            var old = (Ant)registry[id];
+            var updated = new Ant(
+                id: old.GetId(),
+                name: newName,
+                workType: old.GetWorkType(),
+                shiftType: old.GetShiftType(),
+                workShoes: old.GetWorkShoes()
+            );
+            registry[id] = updated;
+        }
+
+        public void UpdateWorkerShift(int id, ShiftType shift)
+        {
+            var old = (Ant)registry[id];
+            var updated = new Ant(
+                id: old.GetId(),
+                name: old.GetName(),
+                workType: old.GetWorkType(),
+                shiftType: shift,
+                workShoes: old.GetWorkShoes()
+            );
+            registry[id] = updated;
+        }
+
+        public void UpdateWorkerShoes(int id, bool hasShoes)
+        {
+            var old = (Ant)registry[id];
+            var updated = new Ant(
+                id: old.GetId(),
+                name: old.GetName(),
+                workType: old.GetWorkType(),
+                shiftType: old.GetShiftType(),
+                workShoes: hasShoes
+            );
+            registry[id] = updated;
+        }
+
+
+
         public List<IWorker> SearchWorker(string name)//fler sökfunktionen
         {
             List<IWorker> workers = new List<IWorker>();
