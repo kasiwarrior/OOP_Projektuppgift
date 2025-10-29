@@ -47,31 +47,27 @@ namespace BackendLibrary
         //}
         public void CreateBackup()
         { 
-            //kanske nått medelande om lyckas eller misslyckas :/
-            //lägg till klockslags grejen :) 
             var lines = new List<string>();
             foreach (var item in registry)
             {
-                lines.Add($"{item.Value.GetId()};{item.Value.GetName()}");
+                lines.Add($"{item.Value.GetId()};{item.Value.GetName()};{item.Value.GetWorkType()};{item.Value.GetShiftType()};{item.Value.GetWorkShoes()};{item.Value.GetStartDate()}");
             }
             File.WriteAllLines("Backup.csv", lines);
         }
-        //public void loadbackup()
-        //{
-        //    //kanske nått medelande om lyckas eller misslyckas :/
-        //    //lägg till klockslags grejen :) 
-        //    if (file.exists("backup.csv"))
-        //    {
-        //        registry = new dictionary<int, iworker>();
-        //        string[] lines = file.readalllines("backup.csv");
+        public void LoadBackup()
+        {
+            if (File.Exists("Backup.csv"))
+            {
+                registry = new Dictionary<int, IWorker>();
+                string[] lines = File.ReadAllLines("Backup.csv");
 
-        //        foreach (string line in lines)
-        //        {
-        //            string[] parts = line.split(';');
-        //            addworker(int.parse(parts[0]), new ant(int.parse(parts[0]), parts[1])); //fixa så att det inte bara är myror som läggs till
-        //        }
-        //    }
-        //}
+                foreach (string line in lines)
+                {
+                    string[] parts = line.Split(';');
+                    AddWorker(int.Parse(parts[0]), new Ant(int.Parse(parts[0]), parts[1], (WorkType)Enum.Parse(typeof(WorkType), parts[2]), (ShiftType)Enum.Parse(typeof(ShiftType), parts[3]), bool.Parse(parts[4]), DateTime.Parse(parts[5]))); //fixa så att det inte bara är myror som läggs till
+                }
+            }
+        }
         public void TestPrinter()
         {
             foreach (var item in registry)

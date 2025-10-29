@@ -16,13 +16,13 @@ namespace BackendLibrary
         private DateTime startDate;
         private bool workShoes;
 
-        public Ant(int id, string name, WorkType workType, ShiftType shiftType, bool workShoes = true)
+        public Ant(int id, string name, WorkType workType, ShiftType shiftType, bool workShoes, DateTime startDate)
         {
             this.id = id;
             this.name = name;
             this.workType = workType;
             this.shiftType = shiftType;
-            startDate = DateTime.Now;
+            this.startDate = startDate;
             this.workShoes = workShoes;
         }
 
