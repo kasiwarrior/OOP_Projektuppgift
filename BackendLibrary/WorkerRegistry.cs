@@ -46,7 +46,7 @@ namespace BackendLibrary
                 return worker;
 
             }
-            // 
+            
             Console.WriteLine("Ingen myra hittades med det ID:T");
             return null;
             

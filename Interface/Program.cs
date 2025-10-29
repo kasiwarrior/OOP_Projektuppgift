@@ -16,8 +16,21 @@ namespace Interface
             workerRegistry.AddWorker(temp.GetId(), temp);
             temp = new Ant(4, "Isak4");
             workerRegistry.AddWorker(temp.GetId(), temp);
+
+
+            // sökningen funkar
+            if (workerRegistry.SearchWorker(2) is IWorker foundWorker)
+            {
+                Console.WriteLine($"Hittade myran: {foundWorker}");
+            }
+
             
-            
+              
+
+
+
+
+
 
             workerRegistry.CreateBackup();
 
