@@ -33,6 +33,10 @@ namespace Interface
             workerRegistry.UpdateWorkerShoes(2, false);
             workerRegistry.UpdateWorkerShoes(3, false);
             
+            workerRegistry.UpdateWorkerType(55, WorkType.Bee);
+            workerRegistry.UpdateWorkerType( 2, WorkType.Bee);
+            workerRegistry.UpdateWorkerType(3, WorkType.Bee);
+            
             workerRegistry.TestPrinter();
             
             Console.WriteLine("Vilken myra vill du avliva?");

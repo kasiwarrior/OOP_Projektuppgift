@@ -65,6 +65,19 @@ namespace BackendLibrary
             );
             registry[id] = updated;
         }
+        
+        public void UpdateWorkerType(int id, WorkType work)
+        {
+            var old = (Ant)registry[id];
+            var updated = new Ant(
+                id: old.GetId(),
+                name: old.GetName(),
+                workType: work,
+                shiftType: old.GetShiftType(),
+                workShoes: old.GetWorkShoes()
+            );
+            registry[id] = updated;
+        }
 
 
 
