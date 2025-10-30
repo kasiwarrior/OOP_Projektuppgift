@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 using System.Diagnostics;
+using System.Net.Quic;
 
 namespace BackendLibrary
 {
@@ -86,11 +87,47 @@ namespace BackendLibrary
             );
             registry[id] = updated;
         }
-        public List<IWorker> SearchWorker(string name)//fler sökfunktionen
+        public List<IWorker> SearchWorker(
+            string? name = null,
+            WorkType? workType = null,
+            ShiftType? shiftType = null,
+            bool? workShoes = null,
+            DateTime? startDate = null,
+            TimeSortOptions option = TimeSortOptions.Specified
+            )
         {
-            List<IWorker> workers = new List<IWorker>();
-            //implementera serch
+            var query = registry.AsQueryable();
 
+            if (!string.IsNullOrWhiteSpace(name))
+            {
+                query = query.Where(p => p.Value.GetName().Contains(name, StringComparison.OrdinalIgnoreCase));
+            }
+            if(workType != null)
+            {
+                query = query.Where(p => p.Value.GetWorkType() == workType);
+            }
+            if (shiftType != null)
+            {
+                query = query.Where(p => p.Value.GetShiftType() == shiftType);
+            }
+            if (workShoes != null)
+            {
+                query = query.Where(p => p.Value.GetWorkShoes() == workShoes);
+            }
+            if(startDate != null && option == TimeSortOptions.Specified)
+            {
+                query = query.Where(p => p.Value.GetStartDate().Date == startDate.Value.Date);
+            }
+            if (startDate != null && option == TimeSortOptions.Before)
+            {
+                query = query.Where(p => p.Value.GetStartDate().Date < startDate.Value.Date);
+            }
+            if (startDate != null && option == TimeSortOptions.After)
+            {
+                query = query.Where(p => p.Value.GetStartDate().Date > startDate.Value.Date);
+            }
+
+            List<IWorker> workers = query.Select(p => p.Value).ToList();
             return workers;
         }
         public bool  SearchWorker(int id, out IWorker worker)
