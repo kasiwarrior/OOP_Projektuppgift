@@ -149,6 +149,26 @@ namespace BackendLibrary
 
             Console.WriteLine($"Backup skapad {lastBackupTime}");
         }
+        private DateTime FindOldestDateInFolder(string folder)
+        {
+            string[] fileNames = Directory.GetFiles(folder);
+            DateTime[] dates = new DateTime[fileNames.Length];
+            for (int i = 0; i < fileNames.Length; i++)
+            {
+                string[] parts = fileNames[i].Split('.');
+                dates[i] = DateTime.Parse(parts[0]);
+            }
+            DateTime reDate = dates[0];
+            for (int i = 0; i < dates.Length; i++)
+            {
+                if (dates[i] < reDate)
+                {
+
+                }
+            }
+
+            return reDate;
+        }
         public void LoadBackup()
         {
             if (File.Exists("Backup.csv"))
