@@ -1,4 +1,7 @@
-﻿namespace VisualInterface
+﻿//using Intents;
+using VisualInterface.Views;
+
+namespace VisualInterface
 {
     public partial class MainPage : ContentPage
     {
@@ -9,16 +12,29 @@
             InitializeComponent();
         }
 
-        private void OnCounterClicked(object? sender, EventArgs e)
+        private void Addbtn_Clicked(object sender, EventArgs e)
         {
-            count++;
+            Shell.Current.GoToAsync(nameof(AddWorker));
+        }
 
-            if (count == 1)
-                CounterBtn.Text = $"Clicked {count} time";
-            else
-                CounterBtn.Text = $"Clicked {count} times";
+        private void Searchbtn_Clicked(object sender, EventArgs e)
+        {
+            Shell.Current.GoToAsync(nameof(SearchWorker));
+        }
 
-            SemanticScreenReader.Announce(CounterBtn.Text);
+        private void Showbtn_Clicked(object sender, EventArgs e)
+        {
+            Shell.Current.GoToAsync(nameof(ShowWorkers));
+        }
+
+        private async void Backupbtn_Clicked(object sender, EventArgs e)
+        {
+            await DisplayAlert("Backup", "Den är inte klar","Lägg in funktionen när det passar"); 
+        }
+
+        private async void Shutdownbtn_Clicked(object sender, EventArgs e)
+        {
+            await DisplayAlert("Avsluta", "Den är inte klar", "Lägg in funktionen när det passar");
         }
     }
 }

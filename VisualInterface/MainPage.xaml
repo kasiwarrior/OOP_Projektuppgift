@@ -1,37 +1,59 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="VisualInterface.MainPage">
+             x:Class="VisualInterface.MainPage"
+             BackgroundColor="#3A7CA5">
 
-    <ScrollView>
-        <VerticalStackLayout
-            Padding="30,0"
-            Spacing="25">
-            <VerticalStackLayout
-    Padding="30,0"
-    Spacing="25">
-                <Label
-        Text="Välkommen"
-        Style="{StaticResource Headline}"
-        SemanticProperties.HeadingLevel="Level1" />
 
-                <Button
-                 x:Name="CounterBtn"
-                 Text="Lägg till arbetare" 
-                 SemanticProperties.Hint="Counts the number of times you click"
-                 Clicked="OnCounterClicked"/>
+    <VerticalStackLayout Spacing="15" Padding="170,0,170,0">
+
+
+        <Label
+                Text="Välkommen"
+                FontAttributes="Bold"
+                TextColor="White"
+                Padding="0,20,0,0"
+                Style="{StaticResource Headline}"
+                SemanticProperties.HeadingLevel="Level1" />
 
                 <Button
-                x:Name="Editbtn"
-                Text="Redigera arbetare" 
-                />
-                <Button
-                x:Name="Deletebtn"
-                Text="Ta bort arbetare" 
-                />
+                 x:Name="Addbtn"
+                 Clicked="Addbtn_Clicked"
+                 Text="Lägg till arbetare"
+                 FontAttributes="Bold"
+                 FontSize="20"
+                 />
 
-            </VerticalStackLayout>
+                <Button
+                x:Name="Searchbtn"
+                Clicked="Searchbtn_Clicked"
+                Text="Sök arbetare"
+                FontAttributes="Bold"
+                FontSize="20"/>
+            
+                <Button
+                x:Name="Showbtn"
+                Clicked="Showbtn_Clicked"
+                Text="Visa alla arbetare" 
+                FontAttributes="Bold"
+                FontSize="20"/>
+            
+                <Button
+                x:Name="Backupbtn"
+                Clicked="Backupbtn_Clicked"
+                Text="Skapa backup" 
+                FontAttributes="Bold"
+                FontSize="20"/>
+
+            <Button
+                HorizontalOptions="End"
+                x:Name="Shutdownbtn"
+                Clicked="Shutdownbtn_Clicked"
+                Text="Avsluta" 
+                FontSize="20"
+                Margin="0, 50,0,0"/>
+        
         </VerticalStackLayout>
-    </ScrollView>
+    
 
 </ContentPage>
