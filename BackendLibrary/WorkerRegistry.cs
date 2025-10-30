@@ -6,7 +6,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 using System.Diagnostics;
-using System.Net;
 
 namespace BackendLibrary
 {
@@ -14,14 +13,20 @@ namespace BackendLibrary
     {
         Dictionary<int, IWorker> registry;
 
+
+
         public bool AddWorker(int id, IWorker worker)
-        {            
-            return registry.TryAdd(id, worker);
+        {
+            registry.Add(id, worker);
+            return true; // Add error detection
         }
+
         public bool RemoveWorker(int id)
         {
             return registry.Remove(id);
         }
+        
+       
         public void UpdateWorkerName(int id, string newName)
         {
             var old = (Ant)registry[id];
@@ -35,6 +40,7 @@ namespace BackendLibrary
             );
             registry[id] = updated;
         }
+
         public void UpdateWorkerShift(int id, ShiftType shift)
         {
             var old = (Ant)registry[id];
@@ -48,6 +54,7 @@ namespace BackendLibrary
             );
             registry[id] = updated;
         }
+
         public void UpdateWorkerShoes(int id, bool hasShoes)
         {
             var old = (Ant)registry[id];
@@ -61,6 +68,7 @@ namespace BackendLibrary
             );
             registry[id] = updated;
         }
+        
         public void UpdateWorkerType(int id, WorkType work)
         {
             var old = (Ant)registry[id];
@@ -74,6 +82,9 @@ namespace BackendLibrary
             );
             registry[id] = updated;
         }
+
+
+
         public List<IWorker> SearchWorker(string name)//fler sökfunktionen
         {
             List<IWorker> workers = new List<IWorker>();
@@ -81,9 +92,18 @@ namespace BackendLibrary
 
             return workers;
         }
-        public bool SearchWorker(int id, out IWorker worker)
+
+
+        // search by id
+        public IWorker SearchWorker(int id)
         {
-            return registry.TryGetValue(id, out worker);
+            // implementera serch 
+            // try get value gör att det blir lite smidigare att kolla om det finns nått med det id:t
+            if (registry.TryGetValue(id, out IWorker worker))
+            {
+                return worker;
+            }
+            return null;
         }
         public void CreateBackup()
         { 
