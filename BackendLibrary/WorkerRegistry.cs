@@ -128,8 +128,6 @@ namespace BackendLibrary
             }
 
             List<IWorker> workers = query.Select(p => p.Value).ToList();
-            //implementera serch
-
             return workers;
         }
         public bool  SearchWorker(int id, out IWorker worker)
