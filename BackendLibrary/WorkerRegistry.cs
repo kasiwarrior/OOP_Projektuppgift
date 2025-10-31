@@ -6,27 +6,35 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 using System.Diagnostics;
+using System.Net.Quic;
 
 namespace BackendLibrary
 {
-    public class WorkerRegistry : TimeManagement
+    public class WorkerRegistry 
     {
         Dictionary<int, IWorker> registry;
+        private DateTime? lastBackupTime;
 
+        public WorkerRegistry()
+        {
+            registry = new Dictionary<int, IWorker>();
 
-
+            //Läser in senaste backup-tid från fil
+            if (File.Exists("BackupTime.txt"))
+            {
+                string savedTime = File.ReadAllText("BackupTime.txt");
+                if (DateTime.TryParse(savedTime, out DateTime parsed))
+                    lastBackupTime = parsed;
+            }
+        }
         public bool AddWorker(int id, IWorker worker)
         {
-            registry.Add(id, worker);
-            return true; // Add error detection
+            return registry.TryAdd(id, worker);
         }
-
         public bool RemoveWorker(int id)
         {
             return registry.Remove(id);
-        }
-        
-       
+        }       
         public void UpdateWorkerName(int id, string newName)
         {
             var old = (Ant)registry[id];
@@ -40,7 +48,6 @@ namespace BackendLibrary
             );
             registry[id] = updated;
         }
-
         public void UpdateWorkerShift(int id, ShiftType shift)
         {
             var old = (Ant)registry[id];
@@ -54,7 +61,6 @@ namespace BackendLibrary
             );
             registry[id] = updated;
         }
-
         public void UpdateWorkerShoes(int id, bool hasShoes)
         {
             var old = (Ant)registry[id];
@@ -68,7 +74,6 @@ namespace BackendLibrary
             );
             registry[id] = updated;
         }
-        
         public void UpdateWorkerType(int id, WorkType work)
         {
             var old = (Ant)registry[id];
@@ -82,28 +87,52 @@ namespace BackendLibrary
             );
             registry[id] = updated;
         }
-
-
-
-        public List<IWorker> SearchWorker(string name)//fler sökfunktionen
+        public List<IWorker> SearchWorker(
+            string? name = null,
+            WorkType? workType = null,
+            ShiftType? shiftType = null,
+            bool? workShoes = null,
+            DateTime? startDate = null,
+            TimeSortOptions option = TimeSortOptions.Specified
+            )
         {
-            List<IWorker> workers = new List<IWorker>();
-            //implementera serch
+            var query = registry.AsQueryable();
 
+            if (!string.IsNullOrWhiteSpace(name))
+            {
+                query = query.Where(p => p.Value.GetName().Contains(name, StringComparison.OrdinalIgnoreCase));
+            }
+            if(workType != null)
+            {
+                query = query.Where(p => p.Value.GetWorkType() == workType);
+            }
+            if (shiftType != null)
+            {
+                query = query.Where(p => p.Value.GetShiftType() == shiftType);
+            }
+            if (workShoes != null)
+            {
+                query = query.Where(p => p.Value.GetWorkShoes() == workShoes);
+            }
+            if(startDate != null && option == TimeSortOptions.Specified)
+            {
+                query = query.Where(p => p.Value.GetStartDate().Date == startDate.Value.Date);
+            }
+            if (startDate != null && option == TimeSortOptions.Before)
+            {
+                query = query.Where(p => p.Value.GetStartDate().Date < startDate.Value.Date);
+            }
+            if (startDate != null && option == TimeSortOptions.After)
+            {
+                query = query.Where(p => p.Value.GetStartDate().Date > startDate.Value.Date);
+            }
+
+            List<IWorker> workers = query.Select(p => p.Value).ToList();
             return workers;
         }
-
-
-        // search by id
-        public IWorker SearchWorker(int id)
+        public bool  SearchWorker(int id, out IWorker worker)
         {
-            // implementera serch 
-            // try get value gör att det blir lite smidigare att kolla om det finns nått med det id:t
-            if (registry.TryGetValue(id, out IWorker worker))
-            {
-                return worker;
-            }
-            return null;
+            return registry.TryGetValue(id, out worker);
         }
         public void CreateBackup()
         { 
@@ -113,6 +142,12 @@ namespace BackendLibrary
                 lines.Add($"{item.Value.GetId()};{item.Value.GetName()};{item.Value.GetWorkType()};{item.Value.GetShiftType()};{item.Value.GetWorkShoes()};{item.Value.GetStartDate()}");
             }
             File.WriteAllLines("Backup.csv", lines);
+
+            //Uppdatera tid
+            lastBackupTime = DateTime.Now;
+            File.WriteAllText("BackupTime.txt", lastBackupTime.ToString());
+
+            Console.WriteLine($"Backup skapad {lastBackupTime}");
         }
         public void LoadBackup()
         {
@@ -128,16 +163,16 @@ namespace BackendLibrary
                 }
             }
         }
+
+
+
+        /* TEST CODE */
         public void TestPrinter()
         {
             foreach (var item in registry)
             {
                 Console.WriteLine(item.Value.ToString());
             }
-        }
-        public WorkerRegistry()
-        {
-            registry = new Dictionary<int, IWorker>();
         }
     }
 }
