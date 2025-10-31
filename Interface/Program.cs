@@ -45,7 +45,7 @@ namespace Interface
                             {
                                 Console.WriteLine("Felaktigt ID.");
                                 WorkerMenu.Pause();
-                                break;
+                               
                             }
 
                             Console.Write("Namn: ");
@@ -97,7 +97,6 @@ namespace Interface
 
                     case "3":
                         WorkerMenu.SearchWorkerMenu(workerRegistry);
-                        WorkerMenu.Pause();
                         break;
 
                     case "4":
