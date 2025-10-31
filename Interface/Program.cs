@@ -93,7 +93,7 @@ namespace Interface
                 return;
             }
 
-            var worker = registry.SearchWorker(id);
+            registry.SearchWorker(id, out var worker);
             if (worker == null)
             {
                 Console.WriteLine("Ingen arbetare hittades med det ID:t.");
