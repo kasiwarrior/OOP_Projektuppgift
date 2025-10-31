@@ -122,15 +122,76 @@ namespace Interface
             Console.WriteLine($"{removed} arbetare togs bort.");
             WorkerMenu.Pause();
         }
-
-        public static void AddWorkerMenu(WorkerRegistry registry) 
-        {
-            
-        }
+        
+        
         public static void Pause()
         {
             Console.WriteLine("\nTryck på valfri tangent för att fortsätta...");
             Console.ReadKey();
         }
+        
+        public static void AddWorkerMenu(WorkerRegistry registry)
+        {
+            Console.Clear();
+            Console.WriteLine("=== Lägg till ny arbetare ===");
+
+            try
+            {
+                Console.Write("ID: ");
+                if (!int.TryParse(Console.ReadLine(), out int id))
+                {
+                    Console.WriteLine("Felaktigt ID.");
+                    Pause();
+                    return;
+                }
+
+                Console.Write("Namn: ");
+                string name = Console.ReadLine();
+                if (string.IsNullOrWhiteSpace(name))
+                {
+                    Console.WriteLine("Namnet får inte vara tomt.");
+                    Pause();
+                    return;
+                }
+
+                Console.WriteLine($"\nTillgängliga jobbtyper: {string.Join(", ", Enum.GetNames(typeof(WorkType)))}");
+                Console.Write("Jobbtyp: ");
+                if (!Enum.TryParse(Console.ReadLine(), true, out WorkType workType))
+                {
+                    Console.WriteLine("Felaktig jobbtyp.");
+                    Pause();
+                    return;
+                }
+
+                Console.WriteLine($"\nTillgängliga skift: {string.Join(", ", Enum.GetNames(typeof(ShiftType)))}");
+                Console.Write("Skift: ");
+                if (!Enum.TryParse(Console.ReadLine(), true, out ShiftType shiftType))
+                {
+                    Console.WriteLine("Felaktigt skift.");
+                    Pause();
+                    return;
+                }
+
+                Console.Write("Har skyddsskor (ja/nej): ");
+                string shoeInput = (Console.ReadLine() ?? "").Trim().ToLower();
+                bool hasShoes = (shoeInput == "ja" || shoeInput == "yes");
+
+                DateTime startDate = DateTime.Now;
+
+                var newAnt = new Ant(id, name, workType, shiftType, hasShoes, startDate);
+
+                if (registry.AddWorker(id, newAnt))
+                    Console.WriteLine("Ny arbetare tillagd!");
+                else
+                    Console.WriteLine("Kunde inte lägga till – ID finns redan.");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Fel vid inmatning: {ex.Message}");
+            }
+
+            Pause();
+        }
+
     }
 }
