@@ -172,7 +172,7 @@ namespace Interface
                     removed++;
             }
 
-            Console.WriteLine($"✅ {removed} arbetare togs bort.");
+            Console.WriteLine($"{removed} arbetare togs bort.");
             Pause();
         }
 
