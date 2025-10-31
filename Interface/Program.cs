@@ -69,7 +69,8 @@ namespace Interface
             Console.Write("Sök efter ID: ");
             if (int.TryParse(Console.ReadLine(), out int id))
             {
-                var worker = registry.SearchWorker(id);
+                registry.SearchWorker(id, out var worker);
+
                 if (worker != null)
                     Console.WriteLine(worker);
                 else
