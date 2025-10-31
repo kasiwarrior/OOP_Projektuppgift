@@ -39,8 +39,9 @@ namespace Interface
                         break;
 
                     case "3":
-                        var filterdWorkers = workerRegistry.SearchWorker();
                         Console.WriteLine("Sök: ");
+                        var search = Console.ReadLine();
+                        var filterdWorkers = workerRegistry.SearchWorker(search);
                         Console.ReadLine();
                         if (filterdWorkers.Count == 0)
                         {
