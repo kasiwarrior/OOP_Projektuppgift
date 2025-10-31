@@ -35,64 +35,7 @@ namespace Interface
                         WorkerMenu.Pause();
                         break;
                     case "2":
-                        Console.Clear();
-                        Console.WriteLine("=== Lägg till ny arbetare ===");
-
-                        try
-                        {
-                            Console.Write("ID: ");
-                            if (!int.TryParse(Console.ReadLine(), out int id))
-                            {
-                                Console.WriteLine("Felaktigt ID.");
-                                WorkerMenu.Pause();
-                                break;
-                            }
-
-                            Console.Write("Namn: ");
-                            string name = Console.ReadLine();
-                            if (string.IsNullOrWhiteSpace(name))
-                            {
-                                Console.WriteLine("Namnet får inte vara tomt.");
-                                WorkerMenu.Pause();
-                                break;
-                            }
-
-                            Console.Write("Jobbtyp (Ant, Bee): ");
-                            if (!Enum.TryParse(Console.ReadLine(), true, out WorkType workType))
-                            {
-                                Console.WriteLine("Felaktig jobbtyp.");
-                                WorkerMenu.Pause();
-                                break;
-                            }
-
-                            Console.Write("Skift (Day, Night): ");
-                            if (!Enum.TryParse(Console.ReadLine(), true, out ShiftType shiftType))
-                            {
-                                Console.WriteLine("Felaktigt skift.");
-                                WorkerMenu.Pause();
-                                break;
-                            }
-
-                            Console.Write("Har skyddsskor (ja/nej): ");
-                            string shoeInput = Console.ReadLine().Trim().ToLower();
-                            bool hasShoes = (shoeInput == "ja" || shoeInput == "yes");
-
-                            DateTime startDate = DateTime.Now;
-
-                            var newAnt = new Ant(id, name, workType, shiftType, hasShoes, startDate);
-
-                            if (workerRegistry.AddWorker(id, newAnt))
-                                Console.WriteLine("Ny arbetare tillagd!");
-                            else
-                                Console.WriteLine("Kunde inte lägga till – ID finns redan.");
-
-                        }
-                        catch (Exception ex)
-                        {
-                            Console.WriteLine($"Fel vid inmatning: {ex.Message}");
-                        }
-
-                        WorkerMenu.Pause();
+                        WorkerMenu.AddWorkerMenu(workerRegistry);
                         break;
 
                     case "3":
