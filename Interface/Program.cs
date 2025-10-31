@@ -39,8 +39,31 @@ namespace Interface
                         break;
 
                     case "3":
-                        WorkerMenu.SearchWorkerMenu(workerRegistry);
-                        WorkerMenu.Pause();
+                        var filterdWorkers = workerRegistry.SearchWorker();
+                        Console.WriteLine("Sök: ");
+                        Console.ReadLine();
+                        if (filterdWorkers.Count == 0)
+                        {
+                            Console.WriteLine("Inga arbetare hittades.");
+                        }
+                        else
+                        {
+                            Console.WriteLine($"Hittade {filterdWorkers.Count} arbetare:\n");
+
+                            foreach (var worker in filterdWorkers)
+                            {
+                                // Här antar vi att IWorker har metoder för att hämta info
+                                Console.WriteLine($"ID: {worker.GetId()}");
+                                Console.WriteLine($"Namn: {worker.GetName()}");
+                                Console.WriteLine($"Typ: {worker.GetWorkType()}");
+                                Console.WriteLine($"Skift: {worker.GetShiftType()}");
+                                Console.WriteLine($"Skyddsskor: {(worker.GetWorkShoes() ? "Ja" : "Nej")}");
+                                Console.WriteLine($"Startdatum: {worker.GetStartDate():yyyy-MM-dd}");
+                                Console.WriteLine("--------------------------------------");
+                            }
+                        }
+                        Console.ReadLine();
+                        //WorkerMenu.SearchWorkerMenu(workerRegistry);
                         break;
 
                     case "4":
