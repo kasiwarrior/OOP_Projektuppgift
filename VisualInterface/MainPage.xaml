@@ -5,32 +5,27 @@
 
     <ScrollView>
         <VerticalStackLayout
-            Padding="30,0"
+            Padding="30,30"
             Spacing="25">
-            <VerticalStackLayout
-    Padding="30,0"
-    Spacing="25">
-                <Label
-        Text="Välkommen"
-        Style="{StaticResource Headline}"
-        SemanticProperties.HeadingLevel="Level1" />
+            <Image
+                Source="myra.png"
+                HeightRequest="385"
+                Aspect="AspectFit"
+                SemanticProperties.Description="En bild på en myra" />
 
-                <Button
-                 x:Name="CounterBtn"
-                 Text="Lägg till arbetare" 
-                 SemanticProperties.Hint="Counts the number of times you click"
-                 Clicked="OnCounterClicked"/>
+            <Button
+                x:Name="CounterBtn2"
+                Text="Lägg till myra" 
+                SemanticProperties.Hint="Counts the number of times you click"
+                Clicked="OnCounterClicked"
+                HorizontalOptions="Fill" />
 
-                <Button
-                x:Name="Editbtn"
-                Text="Redigera arbetare" 
-                />
-                <Button
-                x:Name="Deletebtn"
-                Text="Ta bort arbetare" 
-                />
-
-            </VerticalStackLayout>
+            <Button
+                x:Name="CounterBtn"
+                Text="Ta bort myra" 
+                SemanticProperties.Hint="Counts the number of times you click"
+                Clicked="OnCounterClicked"
+                HorizontalOptions="Fill" />
         </VerticalStackLayout>
     </ScrollView>
 
