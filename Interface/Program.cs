@@ -30,7 +30,6 @@ namespace Interface
                 switch (choice)
                 {
                     case "1":
-                        Console.WriteLine("=== Alla arbetare ===\n");
                         workerRegistry.TestPrinter();
                         WorkerMenu.Pause();
                         break;
@@ -40,7 +39,6 @@ namespace Interface
 
                     case "3":
                         WorkerMenu.SearchWorkerMenu(workerRegistry);
-                        WorkerMenu.Pause();
                         break;
 
                     case "4":

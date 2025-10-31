@@ -8,6 +8,7 @@ using System.IO;
 using System.Diagnostics;
 using System.Net.Quic;
 
+
 namespace BackendLibrary
 {
     public class WorkerRegistry 
@@ -169,6 +170,7 @@ namespace BackendLibrary
         /* TEST CODE */
         public void TestPrinter()
         {
+            Console.WriteLine("=== Alla arbetare ===\n");
             foreach (var item in registry)
             {
                 Console.WriteLine(item.Value.ToString());
