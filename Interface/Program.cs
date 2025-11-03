@@ -9,7 +9,7 @@ namespace Interface
         static void Main(string[] args)
         {
             WorkerRegistry workerRegistry = new WorkerRegistry();
-            workerRegistry.LoadBackup();
+            workerRegistry.LoadBackup("WorkerRegistry");
             
             bool running = true;
             while (running)
