@@ -8,6 +8,11 @@ using System.IO;
 using System.Diagnostics;
 using System.Net.Quic;
 
+// Lägg till factory pattern för att kunna skapa nya arbetartyper utan att röra koden i registret. Kolla upp. 
+// Ev strategy patttern fö att kunna spara i andra backup format. exempelvis JSON. 
+// Ev Singleton Pattern för att kunna göra enbart EN redistry instans. 
+
+// Kolla Solid också, behöver kanske göra om registry klassen. 
 
 namespace BackendLibrary
 {
