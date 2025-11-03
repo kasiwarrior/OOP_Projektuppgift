@@ -130,44 +130,69 @@ namespace BackendLibrary
             List<IWorker> workers = query.Select(p => p.Value).ToList();
             return workers;
         }
-        public bool  SearchWorker(int id, out IWorker worker)
+        public bool SearchWorker(int id, out IWorker worker)
         {
             return registry.TryGetValue(id, out worker);
         }
-        public void CreateBackup()
-        { 
+        public void CreateBackup(string backupName)
+        {
+            // Define the backup folder path (e.g., "Backups/backupName")
+            string backupFolder = Path.Combine("Backups", backupName);
+            Directory.CreateDirectory(backupFolder); // Ensure folder exists
+
+            // Generate backup filename based on current date/time
+            string timestamp = DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss");
+            string backupFilePath = Path.Combine(backupFolder, $"{timestamp}.csv");
+
+            // Define log file path
+            string logFilePath = Path.Combine(backupFolder, "BackupLog.txt");
+
+            // Collect registry data lines
             var lines = new List<string>();
             foreach (var item in registry)
             {
                 lines.Add($"{item.Value.GetId()};{item.Value.GetName()};{item.Value.GetWorkType()};{item.Value.GetShiftType()};{item.Value.GetWorkShoes()};{item.Value.GetStartDate()}");
             }
-            File.WriteAllLines("Backup.csv", lines);
 
-            //Uppdatera tid
-            lastBackupTime = DateTime.Now;
-            File.WriteAllText("BackupTime.txt", lastBackupTime.ToString());
+            // Write the backup file
+            File.WriteAllLines(backupFilePath, lines);
 
-            Console.WriteLine($"Backup skapad {lastBackupTime}");
-        }
-        private DateTime FindOldestDateInFolder(string folder)
-        {
-            string[] fileNames = Directory.GetFiles(folder);
-            DateTime[] dates = new DateTime[fileNames.Length];
-            for (int i = 0; i < fileNames.Length; i++)
+            // Log the creation
+            File.AppendAllText(logFilePath, $"[{DateTime.Now:yyyy-MM-dd HH:mm:ss}] Created backup: {Path.GetFileName(backupFilePath)}{Environment.NewLine}");
+
+            // Manage backup count (keep only 5 most recent backups)
+            var existingBackups = new DirectoryInfo(backupFolder)
+                .GetFiles("*.csv")
+                .OrderBy(f => f.CreationTime)
+                .ToList();
+
+            if (existingBackups.Count > 5)
             {
-                string[] parts = fileNames[i].Split('.');
-                dates[i] = DateTime.Parse(parts[0]);
-            }
-            DateTime reDate = dates[0];
-            for (int i = 0; i < dates.Length; i++)
-            {
-                if (dates[i] < reDate)
+                int toDelete = existingBackups.Count - 5;
+                foreach (var oldFile in existingBackups.Take(toDelete))
                 {
-
+                    // Log deletion before removing
+                    File.AppendAllText(logFilePath, $"[{DateTime.Now:yyyy-MM-dd HH:mm:ss}] Deleted old backup: {oldFile.Name}{Environment.NewLine}");
+                    oldFile.Delete();
                 }
             }
+        }
+        public DateTime? GetNewestBackupDate(string backupName)
+        {
+            // Define the backup folder path
+            string backupFolder = Path.Combine("Backups", backupName);
 
-            return reDate;
+            // Check if the folder exists and has any backups
+            if (!Directory.Exists(backupFolder))
+                return null;
+
+            var newestBackup = new DirectoryInfo(backupFolder)
+                .GetFiles("*.csv")
+                .OrderByDescending(f => f.CreationTime)
+                .FirstOrDefault();
+
+            // Return the creation date, or null if no file found
+            return newestBackup?.CreationTime;
         }
         public void LoadBackup()
         {
