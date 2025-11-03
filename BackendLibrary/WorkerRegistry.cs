@@ -88,6 +88,7 @@ namespace BackendLibrary
             registry[id] = updated;
         }
         public List<IWorker> SearchWorker(
+            int? id = null,
             string? name = null,
             WorkType? workType = null,
             ShiftType? shiftType = null,
@@ -98,6 +99,10 @@ namespace BackendLibrary
         {
             var query = registry.AsQueryable();
 
+            if (id != null)
+            {
+                query = query.Where(p => p.Value.GetId() == id);
+            }
             if (!string.IsNullOrWhiteSpace(name))
             {
                 query = query.Where(p => p.Value.GetName().Contains(name, StringComparison.OrdinalIgnoreCase));
