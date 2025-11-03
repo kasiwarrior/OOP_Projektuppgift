@@ -194,18 +194,57 @@ namespace BackendLibrary
             // Return the creation date, or null if no file found
             return newestBackup?.CreationTime;
         }
-        public void LoadBackup()
+        public bool LoadBackup(string backupName)
         {
-            if (File.Exists("Backup.csv"))
+            // Define the backup folder path
+            string backupFolder = Path.Combine("Backups", backupName);
+
+            // Validate folder existence
+            if (!Directory.Exists(backupFolder))
+                return false;
+
+            // Find the newest backup file
+            var newestBackup = new DirectoryInfo(backupFolder)
+                .GetFiles("*.csv")
+                .OrderByDescending(f => f.CreationTime)
+                .FirstOrDefault();
+
+            if (newestBackup == null)
+                return false;
+
+            try
             {
+                // Read and load registry data
                 registry = new Dictionary<int, IWorker>();
-                string[] lines = File.ReadAllLines("Backup.csv");
+                string[] lines = File.ReadAllLines(newestBackup.FullName);
 
                 foreach (string line in lines)
                 {
                     string[] parts = line.Split(';');
-                    AddWorker(int.Parse(parts[0]), new Ant(int.Parse(parts[0]), parts[1], (WorkType)Enum.Parse(typeof(WorkType), parts[2]), (ShiftType)Enum.Parse(typeof(ShiftType), parts[3]), bool.Parse(parts[4]), DateTime.Parse(parts[5]))); //fixa så att det inte bara är myror som läggs till
+                    if (parts.Length < 6)
+                        continue; // skip malformed lines
+
+                    int id = int.Parse(parts[0]);
+                    string name = parts[1];
+                    WorkType workType = (WorkType)Enum.Parse(typeof(WorkType), parts[2]);
+                    ShiftType shiftType = (ShiftType)Enum.Parse(typeof(ShiftType), parts[3]);
+                    bool workShoes = bool.Parse(parts[4]);
+                    DateTime startDate = DateTime.Parse(parts[5]);
+
+                    // TODO: Replace "Ant" with the correct IWorker implementation
+                    AddWorker(id, new Ant(id, name, workType, shiftType, workShoes, startDate));
                 }
+
+                // Log the successful load
+                string logFilePath = Path.Combine(backupFolder, "BackupLog.txt");
+                File.AppendAllText(logFilePath, $"[{DateTime.Now:yyyy-MM-dd HH:mm:ss}] Loaded backup: {newestBackup.Name}{Environment.NewLine}");
+
+                return true;
+            }
+            catch
+            {
+                // If something goes wrong (file missing, parse error, etc.), fail gracefully
+                return false;
             }
         }
 
