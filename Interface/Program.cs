@@ -1,5 +1,6 @@
 ﻿using BackendLibrary;
 using System.Runtime.InteropServices;
+using System.Security.Cryptography.X509Certificates;
 namespace Interface
 {
 
@@ -9,7 +10,7 @@ namespace Interface
         {
             WorkerRegistry workerRegistry = new WorkerRegistry();
             workerRegistry.LoadBackup();
-
+            
             bool running = true;
             while (running)
             {
@@ -47,7 +48,7 @@ namespace Interface
                         break;
 
                     case "5":
-                        workerRegistry.CreateBackup();
+                        workerRegistry.CreateBackup("WorkerRegistry");
                         Console.WriteLine("Backup skapad!");
                         Pause();
                         break;
