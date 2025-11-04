@@ -31,7 +31,7 @@ namespace VisualInterface
 
             if (int.TryParse(idInput, out int id))
             {
-                var worker = workerRegistry.SearchWorker(id);
+                var worker = workerRegistry.SearchWorker(id).First();
 
                 if (worker != null)
                     await DisplayAlert("Hittad", worker.ToString(), "OK");
