@@ -178,9 +178,9 @@ namespace Interface
 
                 DateTime startDate = DateTime.Now;
 
-                var newAnt = new Ant(id, name, workType, shiftType, hasShoes, startDate);
+  
 
-                if (registry.AddWorker(id, newAnt))
+                if (registry.AddWorker(id, name, workType, shiftType, hasShoes, startDate))
                     Console.WriteLine("Ny arbetare tillagd!");
                 else
                     Console.WriteLine("Kunde inte lägga till – ID finns redan.");
