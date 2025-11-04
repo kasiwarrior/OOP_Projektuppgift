@@ -17,10 +17,11 @@ namespace Interface
                 Console.Clear();
                 Console.WriteLine("=== 🐜 MYR-KONTORET 🐜 ===");
                 Console.WriteLine("1. Visa alla arbetare");
-                Console.WriteLine("2. Sök arbetare");
-                Console.WriteLine("3. Uppdatera arbetare");
-                Console.WriteLine("4. Ta bort arbetare");
-                Console.WriteLine("5. Skapa backup");
+                Console.WriteLine("2. Lägg till arbetare");
+                Console.WriteLine("3. Sök arbetare");
+                Console.WriteLine("4. Uppdatera arbetare");
+                Console.WriteLine("5. Ta bort arbetare");
+                Console.WriteLine("6. Skapa backup");
                 Console.WriteLine("0. Avsluta");
                 Console.Write("\nVälj ett alternativ: ");
 
@@ -32,25 +33,49 @@ namespace Interface
                     case "1":
                         Console.WriteLine("=== Alla arbetare ===\n");
                         workerRegistry.TestPrinter();
-                        Pause();
+                        WorkerMenu.Pause();
                         break;
-
                     case "2":
-                        SearchWorkerMenu(workerRegistry);
+                        WorkerMenu.AddWorkerMenu(workerRegistry);
                         break;
 
                     case "3":
-                        UpdateWorkerMenu(workerRegistry);
+                        Console.WriteLine("Sök: ");
+                        var search = Console.ReadLine();
+                        var filterdWorkers = workerRegistry.SearchWorker(search);
+                        Console.ReadLine();
+                        if (filterdWorkers.Count == 0)
+                        {
+                            Console.WriteLine("Inga arbetare hittades.");
+                        }
+                        else
+                        {
+                            Console.WriteLine($"Hittade {filterdWorkers.Count} arbetare:\n");
+
+                            foreach (var worker in filterdWorkers)
+                            {
+                                // Här antar vi att IWorker har metoder för att hämta info
+                                Console.WriteLine($"ID: {worker.GetId()}");
+                                Console.WriteLine($"Namn: {worker.GetName()}");
+                                Console.WriteLine($"Typ: {worker.GetWorkType()}");
+                                Console.WriteLine($"Skift: {worker.GetShiftType()}");
+                                Console.WriteLine($"Skyddsskor: {(worker.GetWorkShoes() ? "Ja" : "Nej")}");
+                                Console.WriteLine($"Startdatum: {worker.GetStartDate():yyyy-MM-dd}");
+                                Console.WriteLine("--------------------------------------");
+                            }
+                        }
+                        Console.ReadLine();
+                        //WorkerMenu.SearchWorkerMenu(workerRegistry);
                         break;
 
                     case "4":
-                        RemoveWorkerMenu(workerRegistry);
+                        WorkerMenu.UpdateWorkerMenu(workerRegistry);
                         break;
 
                     case "5":
                         workerRegistry.CreateBackup("WorkerRegistry");
                         Console.WriteLine("Backup skapad!");
-                        Pause();
+                        WorkerMenu.Pause();
                         break;
 
                     case "0":
@@ -59,7 +84,7 @@ namespace Interface
 
                     default:
                         Console.WriteLine("Ogiltigt val. Försök igen.");
-                        Pause();
+                        WorkerMenu.Pause();
                         break;
                 }
             }

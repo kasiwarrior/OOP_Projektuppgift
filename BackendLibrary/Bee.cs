@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace BackendLibrary
 {
-    public class Ant : IWorker
+    public class Bee : IWorker
     {
         private int id;
         private string name;
@@ -16,7 +15,8 @@ namespace BackendLibrary
         private DateTime startDate;
         private bool workShoes;
 
-        public Ant(int id, string name, WorkType workType, ShiftType shiftType, bool workShoes, DateTime startDate)
+
+        public Bee(int id, string name, WorkType workType, ShiftType shiftType, bool workShoes, DateTime startDate)
         {
             this.id = id;
             this.name = name;
@@ -51,10 +51,10 @@ namespace BackendLibrary
         {
             return workType;
         }
-        
-        public ShiftType GetShiftType() 
+
+        public ShiftType GetShiftType()
         {
-            return shiftType;    
+            return shiftType;
         }
 
         public DateTime GetStartDate()
@@ -65,9 +65,11 @@ namespace BackendLibrary
 
         public override string ToString()
         {
-            return $"Id: {id}, Namn: {name}, Arbetstyp: Myra, Arbetsskor {workShoes}, Skift: {shiftType}, Anställningsdatum: {startDate:yyyy-MM-dd}";
+            return $"Id: {id}, Namn: {name}, Arbetstyp: Bi, Arbetsskor {workShoes}, Skift: {shiftType}, Anställningsdatum: {startDate:yyyy-MM-dd}";
         }
 
-        
+
+
+
     }
 }

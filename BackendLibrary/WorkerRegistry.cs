@@ -8,6 +8,12 @@ using System.IO;
 using System.Diagnostics;
 using System.Net.Quic;
 
+// Lägg till factory pattern för att kunna skapa nya arbetartyper utan att röra koden i registret. Kolla upp. 
+// Ev strategy patttern fö att kunna spara i andra backup format. exempelvis JSON. 
+// Ev Singleton Pattern för att kunna göra enbart EN redistry instans. 
+
+// Kolla Solid också, behöver kanske göra om registry klassen. 
+
 namespace BackendLibrary
 {
     public class WorkerRegistry 
@@ -27,9 +33,15 @@ namespace BackendLibrary
                     lastBackupTime = parsed;
             }
         }
-        public bool AddWorker(int id, IWorker worker)
+        public bool AddWorker(int id,
+            string name,
+            WorkType workerType,
+            ShiftType shiftType,
+            bool workShoes,
+            DateTime startDate)
         {
-            return registry.TryAdd(id, worker);
+            return registry.TryAdd(id, CreateWorker(id, name, workerType, shiftType,workShoes,startDate));
+            
         }
         public bool RemoveWorker(int id)
         {
@@ -252,6 +264,31 @@ namespace BackendLibrary
                 return false;
             }
         }
+        private static IWorker CreateWorker
+            (
+            int id,
+            string name,
+            WorkType workerType,
+            ShiftType shiftType,
+            bool workShoes,
+            DateTime startDate
+            )
+        {
+            switch (workerType)
+            {
+                case WorkType.Ant:
+                    return new Ant(id, name, workerType, shiftType, workShoes, startDate);
+
+                case WorkType.Bee:
+                    return new Bee(id, name, workerType, shiftType, workShoes, startDate);
+
+                default:
+                    throw new ArgumentException($"Okänd Arbetstyp: {workerType}");
+            }
+        }
+
+
+
 
 
 
@@ -262,6 +299,7 @@ namespace BackendLibrary
             {
                 Console.WriteLine(item.Value.ToString());
             }
+            
         }
     }
 }
