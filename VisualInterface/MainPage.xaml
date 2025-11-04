@@ -1,32 +1,69 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="VisualInterface.MainPage">
-
+             x:Class="VisualInterface.MainPage"
+             Title="Worker Registry">
     <ScrollView>
-        <VerticalStackLayout
-            Padding="30,30"
-            Spacing="25">
-            <Image
-                Source="myra.png"
-                HeightRequest="385"
-                Aspect="AspectFit"
-                SemanticProperties.Description="En bild på en myra" />
+        <VerticalStackLayout Padding="12" Spacing="10">
 
-            <Button
-                x:Name="CounterBtn2"
-                Text="Lägg till myra" 
-                SemanticProperties.Hint="Counts the number of times you click"
-                Clicked="OnCounterClicked"
-                HorizontalOptions="Fill" />
+            <Label Text="Arbetare" FontAttributes="Bold" FontSize="18" />
 
-            <Button
-                x:Name="CounterBtn"
-                Text="Ta bort myra" 
-                SemanticProperties.Hint="Counts the number of times you click"
-                Clicked="OnCounterClicked"
-                HorizontalOptions="Fill" />
+            <!-- Search area -->
+            <HorizontalStackLayout Spacing="8" VerticalOptions="Start">
+                <Entry x:Name="SearchNameEntry" Placeholder="Sök namn..." HorizontalOptions="FillAndExpand" />
+                <Button Text="Sök namn" Clicked="SearchByName_Click" />
+            </HorizontalStackLayout>
+
+            <HorizontalStackLayout Spacing="8" VerticalOptions="Start">
+                <Entry x:Name="SearchIdEntry" Placeholder="Sök id..." Keyboard="Numeric" WidthRequest="120" />
+                <Button Text="Sök id" Clicked="SearchById_Click" />
+                <Button Text="Visa alla" Clicked="ClearSearch_Click" />
+            </HorizontalStackLayout>
+
+            <CollectionView x:Name="WorkersView" SelectionMode="Single" HeightRequest="220"
+                            SelectionChanged="WorkersView_SelectionChanged">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame Margin="4" Padding="8" HasShadow="True" CornerRadius="6">
+                            <VerticalStackLayout>
+                                <Label Text="{Binding Name}" FontAttributes="Bold" />
+                                <Label Text="{Binding Display}" FontSize="12" />
+                            </VerticalStackLayout>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+            <Label Text="Ny / Redigera" FontAttributes="Bold" />
+
+            <Entry x:Name="IdEntry" Placeholder="Id (heltal)" Keyboard="Numeric" />
+            <Entry x:Name="NameEntry" Placeholder="Namn" />
+
+            <HorizontalStackLayout Spacing="8">
+                <Picker x:Name="WorkTypePicker" Title="WorkType" HorizontalOptions="FillAndExpand" />
+                <Picker x:Name="ShiftTypePicker" Title="ShiftType" HorizontalOptions="FillAndExpand" />
+            </HorizontalStackLayout>
+
+            <HorizontalStackLayout VerticalOptions="Center">
+                <Label Text="Arbetsskor" VerticalOptions="Center" />
+                <Switch x:Name="ShoesSwitch" />
+                <Label x:Name="StartDateLabel" Text="Startdatum" VerticalOptions="Center" Margin="12,0,0,0" />
+            </HorizontalStackLayout>
+
+            <DatePicker x:Name="StartDatePicker" />
+
+            <HorizontalStackLayout Spacing="8">
+                <Button Text="Lägg till" Clicked="AddButton_Click" />
+                <Button Text="Uppdatera" Clicked="UpdateButton_Click" />
+                <Button Text="Ta bort" Clicked="RemoveButton_Click" />
+            </HorizontalStackLayout>
+
+            <HorizontalStackLayout Spacing="8">
+                <Button Text="Skapa backup" Clicked="BackupButton_Click" />
+                <Button Text="Läs backup" Clicked="LoadBackupButton_Click" />
+                <Button Text="Avsluta" Clicked="ExitButton_Click" />
+            </HorizontalStackLayout>
+
         </VerticalStackLayout>
     </ScrollView>
-
 </ContentPage>

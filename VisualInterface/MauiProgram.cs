@@ -1,4 +1,8 @@
 ﻿using Microsoft.Extensions.Logging;
+using Microsoft.Maui.Controls.Hosting;
+using Microsoft.Maui.Hosting;
+using BackendLibrary;
+using VisualInterface;
 
 namespace VisualInterface
 {
@@ -16,8 +20,13 @@ namespace VisualInterface
                 });
 
 #if DEBUG
-    		builder.Logging.AddDebug();
+            builder.Logging.AddDebug();
 #endif
+
+            // Registrera backend och UI-sidor i DI
+            builder.Services.AddSingleton<WorkerRegistry>();
+            builder.Services.AddSingleton<TimeManagement>();
+            builder.Services.AddSingleton<MainPage>();
 
             return builder.Build();
         }
