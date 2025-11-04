@@ -33,6 +33,10 @@ namespace BackendLibrary
                     lastBackupTime = parsed;
             }
         }
+        public List<IWorker> GetAllWorkers()
+        {
+            return registry.Values.ToList();
+        }
         public bool AddWorker(int id,
             string name,
             WorkType workerType,
@@ -184,14 +188,6 @@ namespace BackendLibrary
 
             List<IWorker> workers = query.Select(p => p.Value).ToList();
             return workers;
-        }
-        public bool SearchWorker(int id, out IWorker worker)
-        {
-            if (registry.TryGetValue(id, out IWorker worker))
-            {
-                return worker;
-            }
-            return null; // Returnerar null om arbetaren inte hittades
         }
         public void CreateBackup(string backupName)
         {
