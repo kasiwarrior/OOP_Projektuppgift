@@ -35,7 +35,7 @@ namespace VisualInterface
 
         private async Task EnsureBackupAvailableAndLoadAsync()
         {
-            // Kopiera Backup.csv från app-paket till en skrivbar plats (AppData) om den inte redan finns där.
+            
             string destDir = FileSystem.AppDataDirectory;
             string destPath = Path.Combine(destDir, "Backup.csv");
 
@@ -49,29 +49,27 @@ namespace VisualInterface
                 }
                 catch
                 {
-                    // Fil kanske inte finns i paketet — fortsätt utan att kopiera.
+                    
                 }
             }
 
-            // För att ditt befintliga WorkerRegistry.LoadBackup() som använder "Backup.csv" ska hitta filen,
-            // försök sätta nuvarande arbetskatalog till AppDataDirectory.
+            
             try
             {
                 Directory.SetCurrentDirectory(destDir);
             }
             catch
             {
-                // Om detta misslyckas (plattform) så kan vi istället kalla LoadBackup med full sökväg,
-                // men det kräver att WorkerRegistry ändras. Här ignorerar vi tyst fel.
+              
             }
 
-            // Anropa LoadBackup (ingen ändring i WorkerRegistry krävs).
+           
             _registry.LoadBackup();
         }
 
         private void RefreshWorkers()
         {
-            var list = _registry.SearchWorker(); // alla
+            var list = _registry.SearchWorker(); 
             var vms = list.Select(w => new WorkerDto
             {
                 Id = w.GetId(),
@@ -88,7 +86,7 @@ namespace VisualInterface
             WorkersView.ItemsSource = _workers;
         }
 
-        // Search by name (partial, case-insensitive)
+        
         private void SearchByName_Click(object sender, EventArgs e)
         {
             var name = SearchNameEntry.Text;
@@ -119,7 +117,7 @@ namespace VisualInterface
             WorkersView.ItemsSource = _workers;
         }
 
-        // Search by id (exact)
+        
         private void SearchById_Click(object sender, EventArgs e)
         {
             if (!int.TryParse(SearchIdEntry.Text, out int id))
@@ -223,7 +221,7 @@ namespace VisualInterface
 
         private void LoadBackupButton_Click(object sender, EventArgs e)
         {
-            // Om du vill uppdatera från paketerad fil igen, kopiera först som i OnAppearing.
+            
             _registry.LoadBackup();
             DisplayAlert("Info", "Backup inläst", "OK");
             RefreshWorkers();
@@ -246,7 +244,7 @@ namespace VisualInterface
             }
         }
 
-        // Exit button — platform-conditional
+        
         private void ExitButton_Click(object sender, EventArgs e)
         {
 #if WINDOWS

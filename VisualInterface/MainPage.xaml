@@ -8,7 +8,7 @@
 
             <Label Text="Arbetare" FontAttributes="Bold" FontSize="18" />
 
-            <!-- Search area -->
+           
             <HorizontalStackLayout Spacing="8" VerticalOptions="Start">
                 <Entry x:Name="SearchNameEntry" Placeholder="Sök namn..." HorizontalOptions="FillAndExpand" />
                 <Button Text="Sök namn" Clicked="SearchByName_Click" />

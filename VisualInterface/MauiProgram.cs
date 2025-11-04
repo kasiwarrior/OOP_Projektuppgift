@@ -23,7 +23,6 @@ namespace VisualInterface
             builder.Logging.AddDebug();
 #endif
 
-            // Registrera backend och UI-sidor i DI
             builder.Services.AddSingleton<WorkerRegistry>();
             builder.Services.AddSingleton<TimeManagement>();
             builder.Services.AddSingleton<MainPage>();
