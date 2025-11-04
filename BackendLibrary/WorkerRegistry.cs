@@ -27,6 +27,26 @@ namespace BackendLibrary
                     lastBackupTime = parsed;
             }
         }
+
+        public List<IWorker> GetAllWorkers()
+        {
+            // Returnera alla värden (IWorker objekt) från din dictionary 'registry' som en lista.
+            return registry.Values.ToList();
+        }
+
+        public bool AddWorker(IWorker worker)
+        {
+
+            // 1. Kontrollera om ID redan finns
+            if (registry.ContainsKey(worker.GetId()))
+            {
+                return false; // ID finns redan
+            }
+
+            // 2. Lägg till arbetaren
+            registry.Add(worker.GetId(), worker);
+            return true; // Lyckades lägga till
+        }
         public bool AddWorker(int id, IWorker worker)
         {
             return registry.TryAdd(id, worker);
@@ -34,58 +54,96 @@ namespace BackendLibrary
         public bool RemoveWorker(int id)
         {
             return registry.Remove(id);
-        }       
-        public void UpdateWorkerName(int id, string newName)
-        {
-            var old = (Ant)registry[id];
-            var updated = new Ant(
-                id: old.GetId(),
-                name: newName,
-                workType: old.GetWorkType(),
-                shiftType: old.GetShiftType(),
-                workShoes: old.GetWorkShoes(),
-                startDate: old.GetStartDate()
-            );
-            registry[id] = updated;
         }
-        public void UpdateWorkerShift(int id, ShiftType shift)
+        public bool UpdateWorkerName(int id, string newName)
         {
-            var old = (Ant)registry[id];
-            var updated = new Ant(
-                id: old.GetId(),
-                name: old.GetName(),
-                workType: old.GetWorkType(),
-                shiftType: shift,
-                workShoes: old.GetWorkShoes(),
-                startDate: old.GetStartDate()
-            );
-            registry[id] = updated;
+            // Försök hämta den gamla arbetaren på ett säkert sätt
+            if (registry.TryGetValue(id, out IWorker oldWorker))
+            {
+                // Se till att det är en Ant-instans (om du bara har Ant-objekt i registret)
+                if (oldWorker is Ant old)
+                {
+                    // Skapa en helt ny Ant-instans med det uppdaterade namnet
+                    var updated = new Ant(
+                       id: old.GetId(),
+                       name: newName, // Uppdaterat Namn
+                       workType: old.GetWorkType(),
+                       shiftType: old.GetShiftType(),
+                       workShoes: old.GetWorkShoes(),
+                       startDate: old.GetStartDate()
+                   );
+                    registry[id] = updated; // Ersätt den gamla instansen i Dictionary
+                    return true; // Uppdatering lyckades
+                }
+            }
+            return false; // Arbetare hittades inte eller är inte av typen Ant
         }
-        public void UpdateWorkerShoes(int id, bool hasShoes)
+
+        // Uppdaterar Skift
+        public bool UpdateWorkerShift(int id, ShiftType newShift)
         {
-            var old = (Ant)registry[id];
-            var updated = new Ant(
-                id: old.GetId(),
-                name: old.GetName(),
-                workType: old.GetWorkType(),
-                shiftType: old.GetShiftType(),
-                workShoes: hasShoes,
-                startDate: old.GetStartDate()
-            );
-            registry[id] = updated;
+            if (registry.TryGetValue(id, out IWorker oldWorker))
+            {
+                if (oldWorker is Ant old)
+                {
+                    var updated = new Ant(
+                       id: old.GetId(),
+                       name: old.GetName(),
+                       workType: old.GetWorkType(),
+                       shiftType: newShift, // Uppdaterat Skift
+                       workShoes: old.GetWorkShoes(),
+                       startDate: old.GetStartDate()
+                   );
+                    registry[id] = updated;
+                    return true;
+                }
+            }
+            return false;
         }
-        public void UpdateWorkerType(int id, WorkType work)
+
+        // Uppdaterar Jobbtyp
+        public bool UpdateWorkerType(int id, WorkType newType)
         {
-            var old = (Ant)registry[id];
-            var updated = new Ant(
-                id: old.GetId(),
-                name: old.GetName(),
-                workType: work,
-                shiftType: old.GetShiftType(),
-                workShoes: old.GetWorkShoes(),
-                startDate: old.GetStartDate()
-            );
-            registry[id] = updated;
+            if (registry.TryGetValue(id, out IWorker oldWorker))
+            {
+                if (oldWorker is Ant old)
+                {
+                    var updated = new Ant(
+                       id: old.GetId(),
+                       name: old.GetName(),
+                       workType: newType, // Uppdaterad Jobbtyp
+                       shiftType: old.GetShiftType(),
+                       workShoes: old.GetWorkShoes(),
+                       startDate: old.GetStartDate()
+                   );
+                    registry[id] = updated;
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        // Uppdaterar Skyddsskor (Denna anropar SetWorkShoes i Ant.cs om du vill behålla den logiken)
+        // Jag ändrar denna till att matcha ditt mönster för konsekvensens skull:
+        public bool UpdateWorkerShoes(int id, bool hasShoes)
+        {
+            if (registry.TryGetValue(id, out IWorker oldWorker))
+            {
+                if (oldWorker is Ant old)
+                {
+                    var updated = new Ant(
+                       id: old.GetId(),
+                       name: old.GetName(),
+                       workType: old.GetWorkType(),
+                       shiftType: old.GetShiftType(),
+                       workShoes: hasShoes, // Uppdaterade Skyddsskor
+                       startDate: old.GetStartDate()
+                   );
+                    registry[id] = updated;
+                    return true;
+                }
+            }
+            return false;
         }
         public List<IWorker> SearchWorker(
             string? name = null,
@@ -130,9 +188,15 @@ namespace BackendLibrary
             List<IWorker> workers = query.Select(p => p.Value).ToList();
             return workers;
         }
-        public bool  SearchWorker(int id, out IWorker worker)
+
+
+        public IWorker SearchWorker(int id)
         {
-            return registry.TryGetValue(id, out worker);
+            if (registry.TryGetValue(id, out IWorker worker))
+            {
+                return worker;
+            }
+            return null; // Returnerar null om arbetaren inte hittades
         }
         public void CreateBackup()
         { 
