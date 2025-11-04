@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:VisualInterface"
+             x:Class="VisualInterface.UpdateWorkerPage"
+             Title="Uppdatera Arbetare">
+
+    <ScrollView>
+        <VerticalStackLayout Spacing="15" Padding="20">
+
+            <Label x:Name="IdLabel" 
+                   FontSize="Title" 
+                   Text="Uppdaterar Arbetare ID: [ID]" 
+                   Margin="0,10,0,20"/>
+
+            <Label Text="Namn:" />
+            <Entry x:Name="NameEntry" Placeholder="Nytt Namn" />
+
+            <Label Text="Jobbtyp (Ant/Bee):" />
+            <Entry x:Name="WorkTypeEntry" Placeholder="T.ex. Ant, Bee" />
+
+            <Label Text="Skift (Day/Night):" />
+            <Entry x:Name="ShiftTypeEntry" Placeholder="T.ex. Day, Night" />
+
+            <HorizontalStackLayout Spacing="10" Margin="0, 10, 0, 0">
+                <Label Text="Har skyddsskor:" VerticalOptions="Center" />
+                <Switch x:Name="ShoesSwitch" />
+            </HorizontalStackLayout>
+
+            <Button Text="Spara Ändringar" Clicked="OnSaveChangesClicked" Margin="0,30,0,0" />
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

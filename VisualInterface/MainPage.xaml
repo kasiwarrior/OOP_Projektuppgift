@@ -1,31 +1,89 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="VisualInterface.MainPage">
+             x:Class="VisualInterface.MainPage"
+             BackgroundColor="Gray">
+    
+    <ContentPage.Resources>
+        <Style TargetType="Button">
+            <Setter Property="VisualStateManager.VisualStateGroups">
+                <VisualStateGroupList>
+                    <VisualStateGroup x:Name="CommonStates">
 
+                        <VisualState x:Name="Normal">
+                            <VisualState.Setters>
+                                <Setter Property="BackgroundColor" Value="#2196F3" />
+                                <Setter Property="TextColor" Value="White" />
+                            </VisualState.Setters>
+                        </VisualState>
+
+                        <VisualState x:Name="PointerOver">
+                            <VisualState.Setters>
+                                <Setter Property="BackgroundColor" Value="#64B5F6" />
+                                <Setter Property="Scale" Value="1.05" />
+                            </VisualState.Setters>
+                        </VisualState>
+
+                        <VisualState x:Name="Pressed">
+                            <VisualState.Setters>
+                                <Setter Property="BackgroundColor" Value="#1976D2" />
+                                <Setter Property="Scale" Value="0.95" />
+                            </VisualState.Setters>
+                        </VisualState>
+
+                    </VisualStateGroup>
+                </VisualStateGroupList>
+            </Setter>
+        </Style>
+    </ContentPage.Resources>
+    
     <ScrollView>
         <VerticalStackLayout
             Padding="30,30"
             Spacing="25">
-            <Image
-                Source="myra.png"
-                HeightRequest="385"
-                Aspect="AspectFit"
-                SemanticProperties.Description="En bild på en myra" />
+
+            <Label
+                Text="=== 🐜 MYR-KONTORET 🐜 ==="
+                FontSize="Medium"
+                TextColor="Blue"
+                HorizontalOptions="Center"
+                Margin="0, 0, 0, 10" />
 
             <Button
-                x:Name="CounterBtn2"
-                Text="Lägg till myra" 
-                SemanticProperties.Hint="Counts the number of times you click"
-                Clicked="OnCounterClicked"
-                HorizontalOptions="Fill" />
+            Text="1. Lägg till arbetare" 
+            Clicked="AddWorker_Clicked"
+            HorizontalOptions="Fill" />
 
-            <Button
-                x:Name="CounterBtn"
-                Text="Ta bort myra" 
-                SemanticProperties.Hint="Counts the number of times you click"
-                Clicked="OnCounterClicked"
-                HorizontalOptions="Fill" />
+            <Button 
+            Text="2. Visa alla arbetare" 
+            Clicked="ShowWorkers_Clicked"
+            HorizontalOptions="Fill" />
+
+            <Button 
+            Text="3. Sök arbetare" 
+            Clicked="SearchWorker_Clicked"
+            HorizontalOptions="Fill" />
+
+            <Button 
+            Text="4. Uppdatera arbetare" 
+            Clicked="UpdateWorker_Clicked"
+            HorizontalOptions="Fill" />
+
+            <Button 
+            Text="5. Ta bort arbetare" 
+            Clicked="RemoveWorker_Clicked"
+            HorizontalOptions="Fill" />
+
+            <Button 
+            Text="6. Skapa backup" 
+            Clicked="CreateBackup_Clicked"
+            HorizontalOptions="Fill" />
+
+            <Button 
+            Text="0. Avsluta/Spara" 
+            Clicked="ExitApp_Clicked"
+            BackgroundColor="Red"
+            HorizontalOptions="Fill" />
         </VerticalStackLayout>
     </ScrollView>
 
