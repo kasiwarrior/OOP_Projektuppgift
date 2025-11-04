@@ -2,58 +2,89 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="VisualInterface.MainPage"
-             BackgroundColor="#3A7CA5">
+             BackgroundColor="Gray">
+    
+    <ContentPage.Resources>
+        <Style TargetType="Button">
+            <Setter Property="VisualStateManager.VisualStateGroups">
+                <VisualStateGroupList>
+                    <VisualStateGroup x:Name="CommonStates">
 
+                        <VisualState x:Name="Normal">
+                            <VisualState.Setters>
+                                <Setter Property="BackgroundColor" Value="#2196F3" />
+                                <Setter Property="TextColor" Value="White" />
+                            </VisualState.Setters>
+                        </VisualState>
 
-    <VerticalStackLayout Spacing="15" Padding="170,0,170,0">
+                        <VisualState x:Name="PointerOver">
+                            <VisualState.Setters>
+                                <Setter Property="BackgroundColor" Value="#64B5F6" />
+                                <Setter Property="Scale" Value="1.05" />
+                            </VisualState.Setters>
+                        </VisualState>
 
+                        <VisualState x:Name="Pressed">
+                            <VisualState.Setters>
+                                <Setter Property="BackgroundColor" Value="#1976D2" />
+                                <Setter Property="Scale" Value="0.95" />
+                            </VisualState.Setters>
+                        </VisualState>
 
-        <Label
-                Text="Välkommen"
-                FontAttributes="Bold"
-                TextColor="White"
-                Padding="0,20,0,0"
-                Style="{StaticResource Headline}"
-                SemanticProperties.HeadingLevel="Level1" />
+                    </VisualStateGroup>
+                </VisualStateGroupList>
+            </Setter>
+        </Style>
+    </ContentPage.Resources>
+    
+    <ScrollView>
+        <VerticalStackLayout
+            Padding="30,30"
+            Spacing="25">
 
-                <Button
-                 x:Name="Addbtn"
-                 Clicked="Addbtn_Clicked"
-                 Text="Lägg till arbetare"
-                 FontAttributes="Bold"
-                 FontSize="20"
-                 />
-
-                <Button
-                x:Name="Searchbtn"
-                Clicked="Searchbtn_Clicked"
-                Text="Sök arbetare"
-                FontAttributes="Bold"
-                FontSize="20"/>
-            
-                <Button
-                x:Name="Showbtn"
-                Clicked="Showbtn_Clicked"
-                Text="Visa alla arbetare" 
-                FontAttributes="Bold"
-                FontSize="20"/>
-            
-                <Button
-                x:Name="Backupbtn"
-                Clicked="Backupbtn_Clicked"
-                Text="Skapa backup" 
-                FontAttributes="Bold"
-                FontSize="20"/>
+            <Label
+                Text="=== 🐜 MYR-KONTORET 🐜 ==="
+                FontSize="Medium"
+                TextColor="Blue"
+                HorizontalOptions="Center"
+                Margin="0, 0, 0, 10" />
 
             <Button
-                HorizontalOptions="End"
-                x:Name="Shutdownbtn"
-                Clicked="Shutdownbtn_Clicked"
-                Text="Avsluta" 
-                FontSize="20"
-                Margin="0, 50,0,0"/>
-        
+            Text="1. Lägg till arbetare" 
+            Clicked="AddWorker_Clicked"
+            HorizontalOptions="Fill" />
+
+            <Button 
+            Text="2. Visa alla arbetare" 
+            Clicked="ShowWorkers_Clicked"
+            HorizontalOptions="Fill" />
+
+            <Button 
+            Text="3. Sök arbetare" 
+            Clicked="SearchWorker_Clicked"
+            HorizontalOptions="Fill" />
+
+            <Button 
+            Text="4. Uppdatera arbetare" 
+            Clicked="UpdateWorker_Clicked"
+            HorizontalOptions="Fill" />
+
+            <Button 
+            Text="5. Ta bort arbetare" 
+            Clicked="RemoveWorker_Clicked"
+            HorizontalOptions="Fill" />
+
+            <Button 
+            Text="6. Skapa backup" 
+            Clicked="CreateBackup_Clicked"
+            HorizontalOptions="Fill" />
+
+            <Button 
+            Text="0. Avsluta/Spara" 
+            Clicked="ExitApp_Clicked"
+            BackgroundColor="Red"
+            HorizontalOptions="Fill" />
         </VerticalStackLayout>
-    
+    </ScrollView>
 
 </ContentPage>

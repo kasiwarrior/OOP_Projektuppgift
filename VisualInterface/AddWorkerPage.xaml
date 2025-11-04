@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="VisualInterface.AddWorkerPage"
+             Title="Lägg till ny arbetare">
+    <ScrollView>
+        <VerticalStackLayout Spacing="15" Padding="20">
+
+            <Label Text="Grundinformation" FontSize="Title" Margin="0,10,0,0"/>
+
+            <Entry x:Name="IdEntry" Placeholder="ID (Endast siffror)" Keyboard="Numeric" />
+
+            <Entry x:Name="NameEntry" Placeholder="Namn" />
+
+            <Label Text="Startdatum" />
+            <DatePicker x:Name="StartDatePicker" Format="yyyy-MM-dd" />
+
+            <Label Text="Arbetsdetaljer" FontSize="Title" Margin="0,20,0,0"/>
+
+            <Label Text="Jobbtyp (Ant/Bee)" />
+            <Entry x:Name="WorkTypeEntry" Placeholder="T.ex. Ant, Bee" />
+
+            <Label Text="Skift (Day/Night)" />
+            <Entry x:Name="ShiftTypeEntry" Placeholder="T.ex. Day, Night" />
+
+            <HorizontalStackLayout Spacing="10">
+                <Label Text="Har skyddsskor:" VerticalOptions="Center" />
+                <Switch x:Name="ShoesSwitch" IsToggled="False" />
+            </HorizontalStackLayout>
+
+            <Button Text="Spara Arbetare" Clicked="OnSaveWorkerClicked" Margin="0,30,0,0" />
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

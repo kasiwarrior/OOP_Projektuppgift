@@ -6,9 +6,10 @@ using System.Threading.Tasks;
 
 namespace BackendLibrary
 {
-    public interface ITimeManagement
+    public enum TimeSortOptions
     {
-        DateTime LastUpdated { get; }
-        void UpdateTime();
+        Specified,
+        Before,
+        After
     }
 }
