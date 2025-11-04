@@ -33,9 +33,15 @@ namespace BackendLibrary
                     lastBackupTime = parsed;
             }
         }
-        public bool AddWorker(int id, IWorker worker)
+        public bool AddWorker(int id,
+            string name,
+            WorkType workerType,
+            ShiftType shiftType,
+            bool workShoes,
+            DateTime startDate)
         {
-            return registry.TryAdd(id, worker);
+            return registry.TryAdd(id, CreateWorker(id, name, workerType, shiftType,workShoes,startDate));
+            
         }
         public bool RemoveWorker(int id)
         {
@@ -165,10 +171,35 @@ namespace BackendLibrary
                 foreach (string line in lines)
                 {
                     string[] parts = line.Split(';');
-                    AddWorker(int.Parse(parts[0]), new Ant(int.Parse(parts[0]), parts[1], (WorkType)Enum.Parse(typeof(WorkType), parts[2]), (ShiftType)Enum.Parse(typeof(ShiftType), parts[3]), bool.Parse(parts[4]), DateTime.Parse(parts[5]))); //fixa så att det inte bara är myror som läggs till
+                    AddWorker(int.Parse(parts[0]), parts[1], (WorkType)Enum.Parse(typeof(WorkType), parts[2]), (ShiftType)Enum.Parse(typeof(ShiftType), parts[3]), bool.Parse(parts[4]), DateTime.Parse(parts[5])); //fixa så att det inte bara är myror som läggs till
                 }
             }
         }
+        private static IWorker CreateWorker
+            (
+            int id,
+            string name,
+            WorkType workerType,
+            ShiftType shiftType,
+            bool workShoes,
+            DateTime startDate
+            )
+        {
+            switch (workerType)
+            {
+                case WorkType.Ant:
+                    return new Ant(id, name, workerType, shiftType, workShoes, startDate);
+
+                case WorkType.Bee:
+                    return new Bee(id, name, workerType, shiftType, workShoes, startDate);
+
+                default:
+                    throw new ArgumentException($"Okänd Arbetstyp: {workerType}");
+            }
+        }
+
+
+
 
 
 
