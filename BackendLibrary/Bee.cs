@@ -69,7 +69,13 @@ namespace BackendLibrary
         }
 
 
-
+        //MAUI wrapper
+        public int IdDisplay => GetId();
+        public string NameDisplay => GetName();
+        public string WorkTypeDisplay => GetWorkType().ToString();
+        public string ShiftTypeDisplay => GetShiftType().ToString();
+        public string WorkShoesDisplay => GetWorkShoes() ? "Yes" : "No";
+        public string StartDateDisplay => GetStartDate().ToString("MMM dd, yyyy");
 
     }
 }

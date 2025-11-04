@@ -54,13 +54,10 @@ public partial class AddWorkerPage : ContentPage
         DateTime startDate = StartDatePicker.Date;
 
 
-        // --- 2. SKAPA OCH SPARA ARBETARE ---
-
-        // Skapa den nya Ant-instansen
-        Ant newWorker = new Ant(id, name, workType, shiftType, workShoes, startDate);
+        // --- 2. SKAPA OCH SPARA ARBETARE -
 
         //Anropa din metod i WorkerRegistry(du måste ha denna metod implementerad i BackendLibrary)
-         if (_registry.AddWorker(newWorker)) // Exempel på hur det kan se ut
+         if (_registry.AddWorker(id, name, workType, shiftType, workShoes, startDate)) // Exempel på hur det kan se ut
         {
             await DisplayAlert("Framgång!", $"Arbetaren {name} lades till.", "OK");
             await Navigation.PopAsync(); // Gå tillbaka till MainPage

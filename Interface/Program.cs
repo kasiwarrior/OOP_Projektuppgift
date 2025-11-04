@@ -175,7 +175,7 @@ namespace Interface
                 return;
             }
 
-            registry.SearchWorker(id, out var worker);
+            var worker = registry.SearchWorker(id).First();
             if (worker == null)
             {
                 Console.WriteLine("Ingen arbetare hittades med det ID:t.");

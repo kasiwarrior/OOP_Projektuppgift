@@ -4,51 +4,51 @@
              x:Class="VisualInterface.ShowWorkersPage"
              Title="Alla Arbetare">
 
-    <VerticalStackLayout>
-        <Label Text="Registrerade Arbetare" 
-               FontSize="Title" 
-               Margin="20" />
-
-        <CollectionView x:Name="WorkersListView" 
+    <Grid>
+        <ListView x:Name="WorkersListView" 
                         SelectionMode="None" 
                         Margin="10">
 
-            <CollectionView.ItemTemplate>
+            <ListView.ItemTemplate>
                 <DataTemplate>
-                    <Grid Padding="10">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
+                    <ViewCell>
+                        <Grid Padding="10">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
 
-                        <Label Text="{Binding GetId}" 
+                            <Label Text="{Binding IdDisplay}" 
                                FontAttributes="Bold" 
                                Grid.Row="0" 
                                Grid.Column="0" />
-                        <Label Text="{Binding GetName}" 
+                            <Label Text="{Binding NameDisplay}" 
                                FontAttributes="Bold" 
                                Grid.Row="0" 
                                Grid.Column="1" 
                                Margin="10,0,0,0"/>
 
-                        <Label Text="{Binding GetWorkType}" 
+                            <Label Text="{Binding WorkTypeDisplay}" 
                                FontSize="Small" 
                                Grid.Row="1" 
                                Grid.Column="1" />
-                        <Label Text="{Binding GetShiftType}" 
+                            <Label Text="{Binding ShiftTypeDisplay}" 
                                FontSize="Small" 
                                Grid.Row="1" 
                                Grid.Column="2" 
-                               HorizontalOptions="End"/>
+                               HorizontalOptions="End"
+                               VerticalOptions="End"/>
+                            
 
-                    </Grid>
+                        </Grid>
+                    </ViewCell>
                 </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
-    </VerticalStackLayout>
+            </ListView.ItemTemplate>
+        </ListView>
+    </Grid>
 </ContentPage>

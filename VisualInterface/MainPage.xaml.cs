@@ -12,7 +12,7 @@ namespace VisualInterface
             InitializeComponent();
 
             workerRegistry = new WorkerRegistry();
-            workerRegistry.LoadBackup();
+            workerRegistry.LoadBackup("WorkerRegistry");
         }
 
         private async void ShowWorkers_Clicked(object sender, EventArgs e)
@@ -31,7 +31,7 @@ namespace VisualInterface
 
             if (int.TryParse(idInput, out int id))
             {
-                var worker = workerRegistry.SearchWorker(id);
+                var worker = workerRegistry.SearchWorker(id).First();
 
                 if (worker != null)
                     await DisplayAlert("Hittad", worker.ToString(), "OK");
@@ -49,7 +49,7 @@ namespace VisualInterface
 
             if (int.TryParse(idInput, out int id))
             {
-                IWorker worker = workerRegistry.SearchWorker(id); // Använder den enkla SearchWorker(id)
+                IWorker worker = workerRegistry.SearchWorker(id: id).First(); // Använder den enkla SearchWorker(id)
 
                 if (worker != null)
                 {
@@ -78,7 +78,7 @@ namespace VisualInterface
         // 5. SKAPA BACKUP
         private void CreateBackup_Clicked(object sender, EventArgs e)
         {
-            workerRegistry.CreateBackup();
+            workerRegistry.CreateBackup("WorkerRegistry");
             DisplayAlert("Backup", "Backup skapad!", "OK");
         }
 
