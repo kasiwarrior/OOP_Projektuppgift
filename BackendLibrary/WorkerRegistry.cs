@@ -249,7 +249,7 @@ namespace BackendLibrary
                     DateTime startDate = DateTime.Parse(parts[5]);
 
                     // TODO: Replace "Ant" with the correct IWorker implementation
-                    AddWorker(id, new Ant(id, name, workType, shiftType, workShoes, startDate));
+                    AddWorker(id, name, workType, shiftType, workShoes, startDate);
                 }
 
                 // Log the successful load

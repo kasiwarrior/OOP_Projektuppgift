@@ -4,24 +4,23 @@ using System.Security.Cryptography.X509Certificates;
 namespace Interface
 {
 
-     internal class Program
+    internal class Program
     {
         static void Main(string[] args)
         {
             WorkerRegistry workerRegistry = new WorkerRegistry();
             workerRegistry.LoadBackup("WorkerRegistry");
-            
+
             bool running = true;
             while (running)
             {
                 Console.Clear();
                 Console.WriteLine("=== 🐜 MYR-KONTORET 🐜 ===");
                 Console.WriteLine("1. Visa alla arbetare");
-                Console.WriteLine("2. Lägg till arbetare");
-                Console.WriteLine("3. Sök arbetare");
-                Console.WriteLine("4. Uppdatera arbetare");
-                Console.WriteLine("5. Ta bort arbetare");
-                Console.WriteLine("6. Skapa backup");
+                Console.WriteLine("2. Sök arbetare");
+                Console.WriteLine("3. Uppdatera arbetare");
+                Console.WriteLine("4. Ta bort arbetare");
+                Console.WriteLine("5. Skapa backup");
                 Console.WriteLine("0. Avsluta");
                 Console.Write("\nVälj ett alternativ: ");
 
@@ -33,49 +32,25 @@ namespace Interface
                     case "1":
                         Console.WriteLine("=== Alla arbetare ===\n");
                         workerRegistry.TestPrinter();
-                        WorkerMenu.Pause();
+                        Pause();
                         break;
+
                     case "2":
-                        WorkerMenu.AddWorkerMenu(workerRegistry);
+                        SearchWorkerMenu(workerRegistry);
                         break;
 
                     case "3":
-                        Console.WriteLine("Sök: ");
-                        var search = Console.ReadLine();
-                        var filterdWorkers = workerRegistry.SearchWorker(search);
-                        Console.ReadLine();
-                        if (filterdWorkers.Count == 0)
-                        {
-                            Console.WriteLine("Inga arbetare hittades.");
-                        }
-                        else
-                        {
-                            Console.WriteLine($"Hittade {filterdWorkers.Count} arbetare:\n");
-
-                            foreach (var worker in filterdWorkers)
-                            {
-                                // Här antar vi att IWorker har metoder för att hämta info
-                                Console.WriteLine($"ID: {worker.GetId()}");
-                                Console.WriteLine($"Namn: {worker.GetName()}");
-                                Console.WriteLine($"Typ: {worker.GetWorkType()}");
-                                Console.WriteLine($"Skift: {worker.GetShiftType()}");
-                                Console.WriteLine($"Skyddsskor: {(worker.GetWorkShoes() ? "Ja" : "Nej")}");
-                                Console.WriteLine($"Startdatum: {worker.GetStartDate():yyyy-MM-dd}");
-                                Console.WriteLine("--------------------------------------");
-                            }
-                        }
-                        Console.ReadLine();
-                        //WorkerMenu.SearchWorkerMenu(workerRegistry);
+                        UpdateWorkerMenu(workerRegistry);
                         break;
 
                     case "4":
-                        WorkerMenu.UpdateWorkerMenu(workerRegistry);
+                        RemoveWorkerMenu(workerRegistry);
                         break;
 
                     case "5":
                         workerRegistry.CreateBackup("WorkerRegistry");
                         Console.WriteLine("Backup skapad!");
-                        WorkerMenu.Pause();
+                        Pause();
                         break;
 
                     case "0":
@@ -84,111 +59,111 @@ namespace Interface
 
                     default:
                         Console.WriteLine("Ogiltigt val. Försök igen.");
-                        WorkerMenu.Pause();
+                        Pause();
                         break;
                 }
             }
         }
 
-static void SearchWorkerMenu(WorkerRegistry registry)
-{
-    Console.WriteLine("=== Avancerad sökning ===");
-    Console.WriteLine("Tryck Enter för att hoppa över ett fält.");
-
-    // ID search
-    Console.Write("ID: ");
-    int? id = null;
-    string idInput = Console.ReadLine();
-    if (int.TryParse(idInput, out int parsedId))
-        id = parsedId;
-
-    // Name search
-    Console.Write("Namn (del av namn): ");
-    string? name = Console.ReadLine();
-    if (string.IsNullOrWhiteSpace(name)) name = null;
-
-    // WorkType search
-    Console.Write("Jobbtyp (Ant or Bee): ");
-    WorkType? workType = null;
-    string workTypeInput = Console.ReadLine();
-    if (Enum.TryParse(workTypeInput, true, out WorkType wt))
-        workType = wt;
-
-    // ShiftType search
-    Console.Write("Skift (Day, Evening, Night): ");
-    ShiftType? shiftType = null;
-    string shiftInput = Console.ReadLine();
-    if (Enum.TryParse(shiftInput, true, out ShiftType st))
-        shiftType = st;
-
-    // WorkShoes search
-    Console.Write("Har skyddsskor? (ja/nej): ");
-    bool? workShoes = null;
-    string shoesInput = Console.ReadLine()?.Trim().ToLower();
-    if (shoesInput == "ja" || shoesInput == "yes")
-        workShoes = true;
-    else if (shoesInput == "nej" || shoesInput == "no")
-        workShoes = false;
-
-    // Start date and comparison option
-    Console.Write("Startdatum (åååå-mm-dd) eller lämna tomt: ");
-    DateTime? startDate = null;
-    string dateInput = Console.ReadLine();
-    if (DateTime.TryParse(dateInput, out DateTime dt))
-        startDate = dt;
-
-    TimeSortOptions option = TimeSortOptions.Specified;
-    if (startDate != null)
-    {
-        Console.WriteLine("Jämförelsealternativ:");
-        Console.WriteLine("1. Samma dag");
-        Console.WriteLine("2. Före datumet");
-        Console.WriteLine("3. Efter datumet");
-        Console.Write("Val: ");
-        string opt = Console.ReadLine();
-        switch (opt)
+        static void SearchWorkerMenu(WorkerRegistry registry)
         {
-            case "2":
-                option = TimeSortOptions.Before;
-                break;
-            case "3":
-                option = TimeSortOptions.After;
-                break;
-            default:
-                option = TimeSortOptions.Specified;
-                break;
+            Console.WriteLine("=== Avancerad sökning ===");
+            Console.WriteLine("Tryck Enter för att hoppa över ett fält.");
+
+            // ID search
+            Console.Write("ID: ");
+            int? id = null;
+            string idInput = Console.ReadLine();
+            if (int.TryParse(idInput, out int parsedId))
+                id = parsedId;
+
+            // Name search
+            Console.Write("Namn (del av namn): ");
+            string? name = Console.ReadLine();
+            if (string.IsNullOrWhiteSpace(name)) name = null;
+
+            // WorkType search
+            Console.Write("Jobbtyp (Ant or Bee): ");
+            WorkType? workType = null;
+            string workTypeInput = Console.ReadLine();
+            if (Enum.TryParse(workTypeInput, true, out WorkType wt))
+                workType = wt;
+
+            // ShiftType search
+            Console.Write("Skift (Day, Evening, Night): ");
+            ShiftType? shiftType = null;
+            string shiftInput = Console.ReadLine();
+            if (Enum.TryParse(shiftInput, true, out ShiftType st))
+                shiftType = st;
+
+            // WorkShoes search
+            Console.Write("Har skyddsskor? (ja/nej): ");
+            bool? workShoes = null;
+            string shoesInput = Console.ReadLine()?.Trim().ToLower();
+            if (shoesInput == "ja" || shoesInput == "yes")
+                workShoes = true;
+            else if (shoesInput == "nej" || shoesInput == "no")
+                workShoes = false;
+
+            // Start date and comparison option
+            Console.Write("Startdatum (åååå-mm-dd) eller lämna tomt: ");
+            DateTime? startDate = null;
+            string dateInput = Console.ReadLine();
+            if (DateTime.TryParse(dateInput, out DateTime dt))
+                startDate = dt;
+
+            TimeSortOptions option = TimeSortOptions.Specified;
+            if (startDate != null)
+            {
+                Console.WriteLine("Jämförelsealternativ:");
+                Console.WriteLine("1. Samma dag");
+                Console.WriteLine("2. Före datumet");
+                Console.WriteLine("3. Efter datumet");
+                Console.Write("Val: ");
+                string opt = Console.ReadLine();
+                switch (opt)
+                {
+                    case "2":
+                        option = TimeSortOptions.Before;
+                        break;
+                    case "3":
+                        option = TimeSortOptions.After;
+                        break;
+                    default:
+                        option = TimeSortOptions.Specified;
+                        break;
+                }
+            }
+
+
+            List<IWorker> results = registry.SearchWorker(
+                id,
+                name,
+                workType,
+                shiftType,
+                workShoes,
+                startDate,
+                option
+            );
+
+            Console.Clear();
+            Console.WriteLine("=== Sökresultat ===\n");
+
+            if (results.Count == 0)
+            {
+                Console.WriteLine("Inga arbetare matchade sökkriterierna.");
+            }
+            else
+            {
+                foreach (var worker in results)
+                {
+                    Console.WriteLine(worker);
+                }
+                Console.WriteLine($"\nTotalt: {results.Count} arbetare hittades.");
+            }
+
+            Pause();
         }
-    }
-
-
-    List<IWorker> results = registry.SearchWorker(
-        id,
-        name,
-        workType,
-        shiftType,
-        workShoes,
-        startDate,
-        option
-    );
-
-    Console.Clear();
-    Console.WriteLine("=== Sökresultat ===\n");
-
-    if (results.Count == 0)
-    {
-        Console.WriteLine("Inga arbetare matchade sökkriterierna.");
-    }
-    else
-    {
-        foreach (var worker in results)
-        {
-            Console.WriteLine(worker);
-        }
-        Console.WriteLine($"\nTotalt: {results.Count} arbetare hittades.");
-    }
-
-    Pause();
-}
 
         static void UpdateWorkerMenu(WorkerRegistry registry)
         {
