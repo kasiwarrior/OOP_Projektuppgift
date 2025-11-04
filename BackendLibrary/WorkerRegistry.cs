@@ -155,7 +155,9 @@ namespace BackendLibrary
 
             if (id != null)
             {
-                query = query.Where(p => p.Value.GetId() == id);
+                List<IWorker> idWorker = new List<IWorker>();
+                idWorker.Add(registry[id.Value]);
+                return idWorker;
             }
             if (!string.IsNullOrWhiteSpace(name))
             {
