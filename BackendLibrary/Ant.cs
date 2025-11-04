@@ -16,6 +16,13 @@ namespace BackendLibrary
         private DateTime startDate;
         private bool workShoes;
 
+        public int IdDisplay => GetId();
+        public string NameDisplay => GetName();
+        public string WorkTypeDisplay => GetWorkType().ToString();
+        public string ShiftTypeDisplay => GetShiftType().ToString();
+        public string WorkShoesDisplay => GetWorkShoes() ? "Yes" : "No";
+        public string StartDateDisplay => GetStartDate().ToString("MMM dd, yyyy");
+
         public Ant(int id, string name, WorkType workType, ShiftType shiftType, bool workShoes, DateTime startDate)
         {
             this.id = id;
