@@ -36,6 +36,11 @@ namespace BackendLibrary
             return name;
         }
 
+        public void SetName(string newName)
+        {
+            name = newName;
+        }
+
         public bool GetWorkShoes()
         {
             return workShoes;
@@ -51,11 +56,23 @@ namespace BackendLibrary
         {
             return workType;
         }
-        
+
+        public void SetWorkType(WorkType newWorkType)
+        {
+            workType = newWorkType;
+        }
+
         public ShiftType GetShiftType() 
         {
             return shiftType;    
         }
+
+        public void SetShiftType(ShiftType newShiftType)
+        {
+            shiftType = newShiftType;
+        }
+
+
 
         public DateTime GetStartDate()
         {
