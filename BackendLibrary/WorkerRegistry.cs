@@ -8,12 +8,6 @@ using System.IO;
 using System.Diagnostics;
 using System.Net.Quic;
 
-// Lägg till factory pattern för att kunna skapa nya arbetartyper utan att röra koden i registret. Kolla upp. 
-// Ev strategy patttern fö att kunna spara i andra backup format. exempelvis JSON. 
-// Ev Singleton Pattern för att kunna göra enbart EN redistry instans. 
-
-// Kolla Solid också, behöver kanske göra om registry klassen. 
-
 namespace BackendLibrary
 {
     public class WorkerRegistry 
@@ -24,14 +18,6 @@ namespace BackendLibrary
         public WorkerRegistry()
         {
             registry = new Dictionary<int, IWorker>();
-
-            //Läser in senaste backup-tid från fil
-            if (File.Exists("BackupTime.txt"))
-            {
-                string savedTime = File.ReadAllText("BackupTime.txt");
-                if (DateTime.TryParse(savedTime, out DateTime parsed))
-                    lastBackupTime = parsed;
-            }
         }
         public List<IWorker> GetAllWorkers()
         {
@@ -57,13 +43,13 @@ namespace BackendLibrary
             if (registry.TryGetValue(id, out IWorker oldWorker))
             {
                 // Se till att det är en Ant-instans (om du bara har Ant-objekt i registret)
-                if (oldWorker is Ant old)
+                if (oldWorker is IWorker old)
                 {
                     // Skapa en helt ny Ant-instans med det uppdaterade namnet
-                    var updated = new Ant(
+                    var updated = CreateWorker(
                        id: old.GetId(),
                        name: newName, // Uppdaterat Namn
-                       workType: old.GetWorkType(),
+                       workerType: old.GetWorkType(),
                        shiftType: old.GetShiftType(),
                        workShoes: old.GetWorkShoes(),
                        startDate: old.GetStartDate()
@@ -80,12 +66,12 @@ namespace BackendLibrary
         {
             if (registry.TryGetValue(id, out IWorker oldWorker))
             {
-                if (oldWorker is Ant old)
+                if (oldWorker is IWorker old)
                 {
-                    var updated = new Ant(
+                    var updated = CreateWorker(
                        id: old.GetId(),
                        name: old.GetName(),
-                       workType: old.GetWorkType(),
+                       workerType: old.GetWorkType(),
                        shiftType: newShift, // Uppdaterat Skift
                        workShoes: old.GetWorkShoes(),
                        startDate: old.GetStartDate()
@@ -102,12 +88,12 @@ namespace BackendLibrary
         {
             if (registry.TryGetValue(id, out IWorker oldWorker))
             {
-                if (oldWorker is Ant old)
+                if (oldWorker is IWorker old)
                 {
-                    var updated = new Ant(
+                    var updated = CreateWorker(
                        id: old.GetId(),
                        name: old.GetName(),
-                       workType: newType, // Uppdaterad Jobbtyp
+                       workerType: newType, // Uppdaterad Jobbtyp
                        shiftType: old.GetShiftType(),
                        workShoes: old.GetWorkShoes(),
                        startDate: old.GetStartDate()
@@ -125,12 +111,12 @@ namespace BackendLibrary
         {
             if (registry.TryGetValue(id, out IWorker oldWorker))
             {
-                if (oldWorker is Ant old)
+                if (oldWorker is IWorker old)
                 {
-                    var updated = new Ant(
+                    var updated = CreateWorker(
                        id: old.GetId(),
                        name: old.GetName(),
-                       workType: old.GetWorkType(),
+                       workerType: old.GetWorkType(),
                        shiftType: old.GetShiftType(),
                        workShoes: hasShoes, // Uppdaterade Skyddsskor
                        startDate: old.GetStartDate()
@@ -327,19 +313,5 @@ namespace BackendLibrary
             }
         }
 
-
-
-
-
-
-        /* TEST CODE */
-        public void TestPrinter()
-        {
-            foreach (var item in registry)
-            {
-                Console.WriteLine(item.Value.ToString());
-            }
-            
-        }
     }
 }
