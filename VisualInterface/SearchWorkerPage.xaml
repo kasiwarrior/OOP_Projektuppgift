@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="VisualInterface.SearchWorkerPage"
+             Title="SearchWorkerPage">
+    <ScrollView>
+        <VerticalStackLayout Spacing="15" Padding="20">
+
+            <Label Text="Grundinformation" FontSize="Title" Margin="0,10,0,0"/>
+
+            <Entry x:Name="IdEntry" Placeholder="ID (Endast siffror)" Keyboard="Numeric" />
+
+            <Entry x:Name="NameEntry" Placeholder="Namn" />
+
+            <Picker x:Name="TimePicker"
+        Title="Sko alternativ">
+                <Picker.ItemsSource>
+                    <x:Array Type="{x:Type x:String}">
+                        <x:String>Ingnorera datum</x:String>
+                        <x:String>Specifierat datum</x:String>
+                        <x:String>Före</x:String>
+                        <x:String>Efter</x:String>
+
+                    </x:Array>
+                </Picker.ItemsSource>
+                <Picker.SelectedIndex>0</Picker.SelectedIndex>
+            </Picker>
+            <Label Text="Startdatum" />
+            <DatePicker x:Name="StartDatePicker" Format="yyyy-MM-dd" />
+
+            <Label Text="Arbetsdetaljer" FontSize="Title" Margin="0,20,0,0"/>
+
+            <Label Text="Jobbtyp (Ant/Bee)" />
+            <Entry x:Name="WorkTypeEntry" Placeholder="T.ex. Ant, Bee" />
+
+            <Label Text="Skift (Day/Night)" />
+            <Entry x:Name="ShiftTypeEntry" Placeholder="T.ex. Day, Night" />
+
+            <Picker x:Name="ShoePicker"
+        Title="Sko alternativ">
+                <Picker.ItemsSource>
+                    <x:Array Type="{x:Type x:String}">
+                        <x:String>Ignorera skor</x:String>
+                        <x:String>Har skor</x:String>
+                        <x:String>Har inte skor</x:String>
+
+                    </x:Array>
+                </Picker.ItemsSource>
+                <Picker.SelectedIndex>0</Picker.SelectedIndex>
+            </Picker>
+
+
+            <Button Text="Sök" Clicked="OnSaveWorkerClicked" Margin="0,30,0,0" />
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

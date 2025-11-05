@@ -78,6 +78,12 @@
 	  <MauiXaml Update="AddWorkerPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="DeadWorkers.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="SearchWorkerPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="ShowWorkersPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
