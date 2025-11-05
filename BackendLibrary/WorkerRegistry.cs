@@ -57,13 +57,13 @@ namespace BackendLibrary
             if (registry.TryGetValue(id, out IWorker oldWorker))
             {
                 // Se till att det är en Ant-instans (om du bara har Ant-objekt i registret)
-                if (oldWorker is Ant old)
+                if (oldWorker is IWorker old)
                 {
                     // Skapa en helt ny Ant-instans med det uppdaterade namnet
-                    var updated = new Ant(
+                    var updated = CreateWorker(
                        id: old.GetId(),
                        name: newName, // Uppdaterat Namn
-                       workType: old.GetWorkType(),
+                       workerType: old.GetWorkType(),
                        shiftType: old.GetShiftType(),
                        workShoes: old.GetWorkShoes(),
                        startDate: old.GetStartDate()
@@ -80,12 +80,12 @@ namespace BackendLibrary
         {
             if (registry.TryGetValue(id, out IWorker oldWorker))
             {
-                if (oldWorker is Ant old)
+                if (oldWorker is IWorker old)
                 {
-                    var updated = new Ant(
+                    var updated = CreateWorker(
                        id: old.GetId(),
                        name: old.GetName(),
-                       workType: old.GetWorkType(),
+                       workerType: old.GetWorkType(),
                        shiftType: newShift, // Uppdaterat Skift
                        workShoes: old.GetWorkShoes(),
                        startDate: old.GetStartDate()
@@ -102,12 +102,12 @@ namespace BackendLibrary
         {
             if (registry.TryGetValue(id, out IWorker oldWorker))
             {
-                if (oldWorker is Ant old)
+                if (oldWorker is IWorker old)
                 {
-                    var updated = new Ant(
+                    var updated = CreateWorker(
                        id: old.GetId(),
                        name: old.GetName(),
-                       workType: newType, // Uppdaterad Jobbtyp
+                       workerType: newType, // Uppdaterad Jobbtyp
                        shiftType: old.GetShiftType(),
                        workShoes: old.GetWorkShoes(),
                        startDate: old.GetStartDate()
@@ -125,12 +125,12 @@ namespace BackendLibrary
         {
             if (registry.TryGetValue(id, out IWorker oldWorker))
             {
-                if (oldWorker is Ant old)
+                if (oldWorker is IWorker old)
                 {
-                    var updated = new Ant(
+                    var updated = CreateWorker(
                        id: old.GetId(),
                        name: old.GetName(),
-                       workType: old.GetWorkType(),
+                       workerType: old.GetWorkType(),
                        shiftType: old.GetShiftType(),
                        workShoes: hasShoes, // Uppdaterade Skyddsskor
                        startDate: old.GetStartDate()
