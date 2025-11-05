@@ -36,7 +36,11 @@ namespace Interface
 
                     case "2":
                         Console.WriteLine("=== Alla arbetare ===\n");
-                        workerRegistry.TestPrinter();
+                        List<IWorker> workers = workerRegistry.GetAllWorkers();
+                        foreach (IWorker w in workers)
+                        {
+                            Console.WriteLine(w.ToString());
+                        }
                         Pause();
                         break;
 
