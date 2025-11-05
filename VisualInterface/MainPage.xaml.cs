@@ -1,10 +1,12 @@
 ﻿using BackendLibrary;
+using System.Threading.Tasks;
 
 namespace VisualInterface
 {
     public partial class MainPage : ContentPage
     {
         private WorkerRegistry workerRegistry;
+        private WorkerRegistry deadWorkers;
         int count = 0;
 
         public MainPage()
@@ -13,12 +15,24 @@ namespace VisualInterface
 
             workerRegistry = new WorkerRegistry();
             workerRegistry.LoadBackup("WorkerRegistry");
+            deadWorkers = new WorkerRegistry();
+            workerRegistry.LoadBackup("DeadRegistry");
         }
-
+        private async void MoveDeadWorkers_Clicked(object sender, EventArgs e)
+        {
+            List<IWorker> workersToMove = workerRegistry.SearchWorker(startDate: DateTime.Now.AddDays(-14), option: TimeSortOptions.Before);
+            //var testPage = new ShowWorkersPage(workersToMove);
+            //Navigation.PushAsync(testPage);
+            foreach (IWorker w in workersToMove)
+            {
+                deadWorkers.AddWorker(w.GetId(), w.GetName(), w.GetWorkType(), w.GetShiftType(), w.GetWorkShoes(), w.GetStartDate());
+                workerRegistry.RemoveWorker(w.GetId());
+            }
+        }
         private async void ShowWorkers_Clicked(object sender, EventArgs e)
         {
             // Skapa en instans av den nya sidan och skicka med WorkerRegistry
-            var showPage = new ShowWorkersPage(workerRegistry);
+            var showPage = new ShowWorkersPage(workerRegistry.GetAllWorkers());
 
             // Använd Navigation för att gå till listsidan
             await Navigation.PushAsync(showPage);
@@ -26,18 +40,9 @@ namespace VisualInterface
 
         private async void SearchWorker_Clicked(object sender, EventArgs e)
         {
-            // Använd MAUI-popup (DisplayPromptAsync) istället för Console.ReadLine()
-            string idInput = await DisplayPromptAsync("Sök arbetare", "Ange ID:", "OK", "Avbryt", keyboard: Keyboard.Numeric);
+            var searchPage = new SearchWorkerPage(workerRegistry);
 
-            if (int.TryParse(idInput, out int id))
-            {
-                var worker = workerRegistry.SearchWorker(id).First();
-
-                if (worker != null)
-                    await DisplayAlert("Hittad", worker.ToString(), "OK");
-                else
-                    await DisplayAlert("Sökresultat", "Ingen arbetare hittades med det ID:t.", "OK");
-            }
+            await Navigation.PushAsync(searchPage);
         }
 
         // 3. UPPDATERA ARBETARE (Menyval 3)
@@ -127,8 +132,17 @@ namespace VisualInterface
         // 5. SKAPA BACKUP
         private void CreateBackup_Clicked(object sender, EventArgs e)
         {
+            Backup.Text = $"Senaste Backup: {DateTime.Now.ToString("yyyy-MM-dd_HH:mm:ss")}";
             workerRegistry.CreateBackup("WorkerRegistry");
+            workerRegistry.CreateBackup("DeadRegistry");
             DisplayAlert("Backup", "Backup skapad!", "OK");
+        }
+
+        private void LoadBackup_Clicked(object sender, EventArgs e)
+        {
+            workerRegistry.LoadBackup("WorkerRegistry");
+            workerRegistry.LoadBackup("DeadRegistry");
+            DisplayAlert("Backup", "Backup laddad!", "OK");
         }
 
         // EXTRA: LÄGG TILL ARBETARE
@@ -141,10 +155,11 @@ namespace VisualInterface
             await Navigation.PushAsync(addPage);
         }
 
-        private void ExitApp_Clicked(object sender, EventArgs e)
+        private async void DeadButton_Clicked(object sender, EventArgs e)
         {
-            // I MAUI avslutar man normalt inte appen helt. Logik för de?
-            DisplayAlert("Avslutar", "Applikationen fortsätter i bakgrunden. Data sparat.", "OK");
+            var addPage = new DeadWorkers(deadWorkers);
+
+            await Navigation.PushAsync(addPage);
         }
     }
 }
