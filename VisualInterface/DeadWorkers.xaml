@@ -1,9 +1,8 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="VisualInterface.MainPage"
-             BackgroundColor="Gray">
-    
+             x:Class="VisualInterface.DeadWorkers"
+             Title="DeadWorkers">
     <ContentPage.Resources>
         <Style TargetType="Button">
             <Setter Property="VisualStateManager.VisualStateGroups">
@@ -36,32 +35,21 @@
             </Setter>
         </Style>
     </ContentPage.Resources>
-    
+
     <ScrollView>
         <VerticalStackLayout
-            Padding="30,30"
-            Spacing="25">
+        Padding="30,30"
+        Spacing="25">
 
             <Label
-                Text="=== 🐜 MYR-KONTORET 🐜 ==="
-                FontSize="Medium"
-                TextColor="Blue"
-                HorizontalOptions="Center"
-                Margin="0, 0, 0, 10" />
-            <Label
-                x:Name="Backup"
-                FontSize="Small"
-                TextColor="Blue"
-                HorizontalOptions="Center"
-                Margin="0, 0, 0, 10" />
-            
+            Text="=== 🐜 MYR-KYRKOGÅRDEN 🐜 ==="
+            FontSize="Medium"
+            TextColor="Blue"
+            HorizontalOptions="Center"
+            Margin="0, 0, 0, 10" />
+
             <Button
-            Text="Lägg till arbetare" 
-            Clicked="AddWorker_Clicked"
-            HorizontalOptions="Fill" />
-
-            <Button 
-            Text="Visa alla arbetare" 
+            Text="Visa arbetare" 
             Clicked="ShowWorkers_Clicked"
             HorizontalOptions="Fill" />
 
@@ -71,37 +59,9 @@
             HorizontalOptions="Fill" />
 
             <Button 
-            Text="Uppdatera arbetare" 
-            Clicked="UpdateWorker_Clicked"
-            HorizontalOptions="Fill" />
-
-            <Button 
             Text="Ta bort arbetare" 
             Clicked="RemoveWorker_Clicked"
             HorizontalOptions="Fill" />
-
-            <Button 
-            Text="Skapa backup" 
-            Clicked="CreateBackup_Clicked"
-            HorizontalOptions="Fill" />
-
-            <Button 
-            Text="Ladda in Backup" 
-            Clicked="LoadBackup_Clicked"
-            HorizontalOptions="Fill" />
-
-            <Button 
-            Text="Död" 
-            Clicked="DeadButton_Clicked"
-            BackgroundColor="Red"
-            HorizontalOptions="Fill" />
-            
-            <Button 
-            Text="Simulerings knapp: Flytta döda" 
-            Clicked="MoveDeadWorkers_Clicked"
-            BackgroundColor= "Green"
-            HorizontalOptions="Fill" />
         </VerticalStackLayout>
     </ScrollView>
-
 </ContentPage>

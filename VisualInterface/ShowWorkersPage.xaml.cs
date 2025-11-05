@@ -5,12 +5,12 @@ namespace VisualInterface;
 
     public partial class ShowWorkersPage : ContentPage
     {
-        private WorkerRegistry _registry;
+        private List<IWorker> _workers;
 
-        public ShowWorkersPage(WorkerRegistry registry)
+        public ShowWorkersPage(List<IWorker> workers)
         {
             InitializeComponent();
-            _registry = registry;
+            _workers = workers;
 
             // Ladda datan när sidan skapas
             LoadWorkers();
@@ -18,13 +18,9 @@ namespace VisualInterface;
 
         private void LoadWorkers()
         {
-            // Hämta listan från din BackendLibrary
-            List<IWorker> workers = _registry.GetAllWorkers();
+            WorkersListView.ItemsSource = _workers;
 
-            // Koppla listan till CollectionView's ItemsSource
-            WorkersListView.ItemsSource = workers;
-
-            if (workers == null || workers.Count == 0)
+            if (_workers == null || _workers.Count == 0)
             {
                 Title = "Inga Arbetare Hittades";
             }
