@@ -327,19 +327,5 @@ namespace BackendLibrary
             }
         }
 
-
-
-
-
-
-        /* TEST CODE */
-        public void TestPrinter()
-        {
-            foreach (var item in registry)
-            {
-                Console.WriteLine(item.Value.ToString());
-            }
-            
-        }
     }
 }
