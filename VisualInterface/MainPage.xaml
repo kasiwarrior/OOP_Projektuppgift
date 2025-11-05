@@ -2,9 +2,10 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="VisualInterface.MainPage"
-             BackgroundColor="Gray">
-    
+             BackgroundImageSource="myrstack.jpg">
+
     <ContentPage.Resources>
+
         <Style TargetType="Button">
             <Setter Property="VisualStateManager.VisualStateGroups">
                 <VisualStateGroupList>
@@ -40,50 +41,73 @@
     <ScrollView>
         <VerticalStackLayout
             Padding="30,30"
-            Spacing="25">
+            Spacing="25"
+            BackgroundColor="#00000080">
 
-            <Label
+            <Button
                 Text="=== 🐜 MYR-KONTORET 🐜 ==="
-                FontSize="Medium"
-                TextColor="Blue"
-                HorizontalOptions="Center"
+                BackgroundColor="LightGray"
+                FontSize="Large"
+                TextColor="Black"
+                HorizontalOptions="Fill"
                 Margin="0, 0, 0, 10" />
 
             <Button
-            Text="1. Lägg till arbetare" 
+            Text="Lägg till arbetare" 
             Clicked="AddWorker_Clicked"
-            HorizontalOptions="Fill" />
+            HorizontalOptions="Fill"
+            Margin="200, 0"
+            BorderColor="#64B5F6"
+            BorderWidth="5"/>
 
             <Button 
-            Text="2. Visa alla arbetare" 
+            Text="Visa alla arbetare" 
             Clicked="ShowWorkers_Clicked"
-            HorizontalOptions="Fill" />
-
+            HorizontalOptions="Fill"
+            Margin="200, 0"
+            BorderColor="#64B5F6"
+            BorderWidth="5"/>
+            
             <Button 
-            Text="3. Sök arbetare" 
+            Text="Sök arbetare" 
             Clicked="SearchWorker_Clicked"
-            HorizontalOptions="Fill" />
+            HorizontalOptions="Fill"
+            Margin="200, 0"
+            BorderColor="#64B5F6"
+            BorderWidth="5"/>
 
             <Button 
-            Text="4. Uppdatera arbetare" 
+            Text="Uppdatera arbetare" 
             Clicked="UpdateWorker_Clicked"
-            HorizontalOptions="Fill" />
+            HorizontalOptions="Fill"
+            Margin="200, 0"
+            BorderColor="#64B5F6"
+            BorderWidth="5"/>
 
             <Button 
-            Text="5. Ta bort arbetare" 
+            Text="Ta bort arbetare" 
             Clicked="RemoveWorker_Clicked"
-            HorizontalOptions="Fill" />
+            HorizontalOptions="Fill"
+            Margin="200, 0"
+            BorderColor="#64B5F6"
+            BorderWidth="5"/>
 
             <Button 
-            Text="6. Skapa backup" 
+            Text="Skapa backup" 
             Clicked="CreateBackup_Clicked"
-            HorizontalOptions="Fill" />
+            HorizontalOptions="Fill"
+            Margin="200, 0"
+            BorderColor="#64B5F6"
+            BorderWidth="5"/>
 
             <Button 
-            Text="0. Avsluta/Spara" 
+            Text="Avsluta/Spara" 
             Clicked="ExitApp_Clicked"
             BackgroundColor="Red"
-            HorizontalOptions="Fill" />
+            HorizontalOptions="Fill"
+            Margin="200, 0"
+            BorderColor="DarkRed"
+            BorderWidth="5"/>
         </VerticalStackLayout>
     </ScrollView>
 
