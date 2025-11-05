@@ -68,11 +68,60 @@ namespace VisualInterface
             }
         }
 
-        // 4. TA BORT ARBETARE (Motsvarar din gamla funktion)
-        private void RemoveWorker_Clicked(object sender, EventArgs e)
+        // 4. TA BORT ARBETARE
+        private async void RemoveWorker_Clicked(object sender, EventArgs e)
         {
-            // Logik för att ta bort en arbetare
-            DisplayAlert("Status", "Funktion: Ta bort arbetare (måste implementeras)", "OK");
+            // Steg 1: Be användaren om ID med en popup
+            string idInput = await DisplayPromptAsync(
+                "Ta bort arbetare",
+                "Ange ID för arbetaren som ska tas bort:",
+                "Ta Bort",
+                "Avbryt",
+                keyboard: Keyboard.Numeric
+            );
+
+            // Hantera om användaren avbröt eller lämnade fältet tomt
+            if (string.IsNullOrWhiteSpace(idInput)) return;
+
+            // Steg 2: Validera ID
+            if (int.TryParse(idInput, out int id))
+            {
+                // Sök efter arbetaren för att visa bekräftelseinformation
+                var worker = workerRegistry.SearchWorker(id).First();
+
+                if (worker != null)
+                {
+                    // Steg 3: Visa bekräftelse och namn/ID
+                    bool confirmed = await DisplayAlert(
+                        "Bekräfta borttagning",
+                        $"Är du säker på att du vill ta bort {worker.GetName()} (ID: {id})?",
+                        "Ja, ta bort",
+                        "Avbryt"
+                    );
+
+                    if (confirmed)
+                    {
+                        // Steg 4: Utför borttagningen
+                        if (workerRegistry.RemoveWorker(id))
+                        {
+
+                            await DisplayAlert("Framgång!", $"{worker.GetName()} har tagits bort", "OK");
+                        }
+                        else
+                        {
+                            await DisplayAlert("Fel", $"Kunde inte ta bort arbetare med ID {id}.", "OK");
+                        }
+                    }
+                }
+                else
+                {
+                    await DisplayAlert("Sökresultat", $"Ingen arbetare hittades med ID {id}.", "OK");
+                }
+            }
+            else
+            {
+                await DisplayAlert("Fel", "Ogiltigt ID angivet.", "OK");
+            }
         }
 
         // 5. SKAPA BACKUP
